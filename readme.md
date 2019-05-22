@@ -31,3 +31,18 @@ location / {
 
 ### Setup environment parameters
 To start with demo settings, just copy the `.env.demo` to `.env` and run the application.
+
+### Frontend setup
+We're working with Node v11. 
+Then let npm install all dependencies. `npm install`
+
+````bash
+// Run all Mix tasks...
+npm run dev
+
+// Watch changes
+npm run watch
+
+// Run all Mix tasks and minify output...
+npm run production
+````

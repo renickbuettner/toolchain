@@ -1,0 +1,60 @@
+.ui {
+    .sidebar {
+        background-color: $colorPrimary;
+        color: $fontSidebarColor;
+        padding: 2rem;
+
+        header {
+            text-align: center;
+        }
+
+        .ui-group {
+            .ui-btn {
+                display: block;
+                padding: 1rem 2rem 1rem 4rem;
+                color: white;
+                transition: all ease-in-out 100ms;
+                border-radius: 3px;
+                &:hover, &.active {
+                    color: $colorPrimary;
+                    background-color: $colorLight;
+                    text-decoration: none;
+                }
+                &.active {
+                    -webkit-box-shadow: inset 0px 0px 5px 3px rgba(163,163,163,1);
+                    -moz-box-shadow: inset 0px 0px 5px 3px rgba(163,163,163,1);
+                    box-shadow: inset 0px 0px 5px 3px rgba(163,163,163,1);
+                }
+                &::before {
+                    display: block;
+                    content: ' ';
+                    height: 30px;
+                    width: 30px;
+                    position: absolute;
+                    margin-left: -2.5rem;
+                    margin-top: -0.25rem;
+                    background: yellowgreen;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .ui {
+        .sidebar {
+            height: 100vw;
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+            -webkit-box-shadow: 1px 0px 5px 0px rgba(112,112,112,1);
+            -moz-box-shadow: 1px 0px 5px 0px rgba(112,112,112,1);
+            box-shadow: 1px 0px 5px 0px rgba(112,112,112,1);
+
+            header {
+                padding-bottom: 4rem;
+            }
+        }
+    }
+}
