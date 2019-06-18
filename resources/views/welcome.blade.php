@@ -100,14 +100,18 @@
         </div>
     </div>-->
     <div class="screen">
-        <div class="window">
+        <div class="window text-center" id="window">
             <div class="title-bar">
                 <div class="controls">
-                    <div class="control close"></div>
-                    <div class="control minimize"></div>
+                    <div class="control close" onclick="window.location.reload()"></div>
+                    <div class="control minimize" onclick="document.getElementById('window').style.display = 'none';"></div>
                     <div class="control maximize"></div>
                 </div>
                 <div class="title">Login into Toolchain</div>
+                <img class="img-fluid img-thumbnail rounded-circle mt-5" src="https://via.placeholder.com/144?text=LOGO">
+                <div class="p-5">
+                    <button class="btn btn-outline-light btn-block">Login via SSO</button>
+                </div>
             </div>
         </div>
     </div>
@@ -682,6 +686,7 @@
         height: 12px;
         border-radius: 50%;
         margin-right: 8px;
+        opacity: 1;
     }
     .control.close {
         background-color: #df6158;
