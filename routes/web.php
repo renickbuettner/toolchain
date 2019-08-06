@@ -1,5 +1,7 @@
 <?php
 
+use toolchain\Services;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +18,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $Services = new Services();
+
+    return view('dashboard', [
+        "services" => $Services->getServices()
+    ]);
 });
 
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
