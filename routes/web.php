@@ -1,6 +1,6 @@
 <?php
 
-use toolchain\Services;
+use Toolchain\Services as ServicesModel;
 
 /*
 |--------------------------------------------------------------------------

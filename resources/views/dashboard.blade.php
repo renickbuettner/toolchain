@@ -18,6 +18,12 @@
             <a href="#" class="ui-btn">Help center</a>
         </section>
     </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+        <h1>Dashboard</h1>
+
+        {{ $services }}
+
+    </div>
 </section>
 
 @endsection

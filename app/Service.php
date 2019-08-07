@@ -1,6 +1,6 @@
 <?php
 
-namespace toolchain;
+namespace Toolchain;
 
 class Service {
 
