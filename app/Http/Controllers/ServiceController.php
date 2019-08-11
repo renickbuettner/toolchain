@@ -21,8 +21,6 @@ class ServiceController extends Controller
      */
     public function dashboard()
     {
-        return view('dashboard', [
-            "services" => $this->services->getServices()
-        ]);
+        return view('dashboard', ["services" => $this->services]);
     }
 }

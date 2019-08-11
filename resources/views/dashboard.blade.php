@@ -21,7 +21,8 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-9 offset-lg-3">
         <h1>Dashboard</h1>
 
-        {{ count($services) }}
+        {{ serialize($services->getCategories()) }}
+
 
     </div>
 </section>

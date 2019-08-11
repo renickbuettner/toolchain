@@ -13,10 +13,13 @@ class Services {
     protected $services = null;
     protected $categories = [];
 
-    public function getServices($category = null) {
+    public function __construct() {
         if ($this->services === null) {
             $this->getFromDisk();
         }
+    }
+
+    public function getServices($category = null) {
 
         if ($category !== null) {
             $filtered = [];
@@ -38,6 +41,10 @@ class Services {
         if (!in_array($s->getCategory(), $this->categories)) {
             $this->categories[] = $s->getCategory();
         }
+    }
+
+    public function getCategories() {
+        return $this->categories;
     }
 
     public function removeService(Service $s) {
