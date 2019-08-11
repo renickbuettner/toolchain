@@ -4,6 +4,7 @@ namespace Toolchain;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Services {
 
@@ -32,6 +33,19 @@ class Services {
         }
 
         return $this->services;
+    }
+
+    /**
+     * Get a service by slug
+     * @param String $slug
+     * @return Service
+     */
+    public function getService(String $slug): Service {
+        try {
+            return $this->services[$slug];
+        } catch (\Exception $e) {
+            throw new NotFoundHttpException();
+        }
     }
 
     public function addService(Service $s) {

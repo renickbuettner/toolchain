@@ -13,6 +13,9 @@ use Toolchain\Services as ServicesModel;
 |
 */
 
+Route::pattern('slug', '[a-z0-9]+');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,3 +27,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');
+
+Route::match(
+    ['get', 'post', 'delete'],
+    '/service/{slug}',
+    'ServiceController@service'
+)->name('service');

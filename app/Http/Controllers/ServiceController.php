@@ -19,8 +19,11 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function dashboard()
-    {
+    public function dashboard() {
         return view('dashboard', ["services" => $this->services]);
+    }
+
+    public function service(String $slug) {
+        return view('service', ["service" => $this->services->getService($slug)]);
     }
 }
