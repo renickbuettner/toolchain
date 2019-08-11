@@ -20,12 +20,11 @@ class Services {
     }
 
     public function getServices($category = null) {
-
-        if ($category !== null) {
+        if ($category !== null && in_array($category, $this->categories)) {
             $filtered = [];
             foreach ($this->services as $s) {
                 if ($s instanceof Service) {
-                    if ($s->getCategory === $category) {
+                    if ($s->getCategory() === $category) {
                         $filtered[$s->getSlug()] = $s;
                     }
                 }

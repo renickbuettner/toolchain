@@ -11,7 +11,7 @@ class Service {
     protected $icon;
     protected $category;
 
-    public function getTitle() {
+    public function getTitle(): String {
         return $this->title;
     }
 
@@ -21,7 +21,7 @@ class Service {
         return $this;
     }
 
-    public function getSlug() {
+    public function getSlug(): String {
 
         return $this->slug;
     }
@@ -31,7 +31,7 @@ class Service {
         return $this;
     }
 
-    public function getDescription() {
+    public function getDescription(): String {
         $this->description;
     }
 
@@ -40,7 +40,7 @@ class Service {
         return $this;
     }
 
-    public function getCategory() {
+    public function getCategory(): String {
         return $this->category;
     }
 
@@ -59,7 +59,7 @@ class Service {
         return $this;
     }
 
-    public function getIcon() {
+    public function getIcon(): String {
         return $this->icon;
     }
 
@@ -68,7 +68,7 @@ class Service {
         return $this;
     }
 
-    public function getUrl() {
+    public function getUrl(): String {
         return $this->url;
     }
 
@@ -132,4 +132,7 @@ class Service {
         ]);
     }
 
+    public function getComponent() {
+        return view('dashboard', ["services" => $this->services]);
+    }
 }
