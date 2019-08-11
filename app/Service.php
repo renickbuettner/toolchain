@@ -9,6 +9,7 @@ class Service {
     protected $url;
     protected $description;
     protected $icon;
+    protected $category;
 
     public function getTitle() {
         return $this->title;
@@ -36,6 +37,25 @@ class Service {
 
     public function setDescription(String $desc) {
         $this->description = $desc;
+        return $this;
+    }
+
+    public function getCategory() {
+        return $this->category;
+    }
+
+    /**
+     * Convert a category in a safe state.
+     * Because it has to be equal on multiple
+     * services.
+     *
+     * @param $string
+     * @return string
+     */
+    public function setCategory(String $cat) {
+        $this->category = strtolower(
+            explode(' ', $cat)[0]
+        );
         return $this;
     }
 
@@ -84,11 +104,11 @@ class Service {
         return $slug;
     }
 
-    public static function fromString(String $string) {
+    public static function fromString(String $string): Service {
         $s = new Service();
 
         try {
-            $obj = json_decode($string, true);
+            $obj = json_decode($string, false);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -97,6 +117,7 @@ class Service {
             ->setTitle($obj->title)
             ->setDescription($obj->description)
             ->setIcon($obj->icon)
+            ->setCategory($obj->category)
             ->setSlug($obj->slug);
     }
 
@@ -106,7 +127,9 @@ class Service {
             "description" => $this->description,
             "url" => $this->url,
             "slug" => $this->slug,
-            "icon" => $this->icon
+            "icon" => $this->icon,
+            "category" => $this->category
         ]);
     }
+
 }

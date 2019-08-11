@@ -17,17 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $Services = new Services();
-
-    return view('dashboard', [
-        "services" => $Services->getServices()
-    ]);
-});
-
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');

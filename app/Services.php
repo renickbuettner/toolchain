@@ -2,16 +2,31 @@
 
 namespace Toolchain;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Support\Facades\Storage;
+
 class Services {
 
     /**
      * @Array<slug, Service> services
      */
     protected $services = null;
+    protected $categories = [];
 
-    public function getServices() {
+    public function getServices($category = null) {
         if ($this->services === null) {
             $this->getFromDisk();
+        }
+
+        if ($category !== null) {
+            $filtered = [];
+            foreach ($this->services as $s) {
+                if ($s instanceof Service) {
+                    if ($s->getCategory === $category) {
+                        $filtered[$s->getSlug()] = $s;
+                    }
+                }
+            }
         }
 
         return $this->services;
@@ -19,6 +34,10 @@ class Services {
 
     public function addService(Service $s) {
         $this->services[$s->getSlug()] = $s;
+
+        if (!in_array($s->getCategory(), $this->categories)) {
+            $this->categories[] = $s->getCategory();
+        }
     }
 
     public function removeService(Service $s) {
@@ -41,7 +60,25 @@ class Services {
         // load from database
         // but just for now: dummy data
 
-        $this->addService(Service::fromString(file_get_contents(base_path()."dummy.service.json")));
+        try {
+            $serv = Service::fromString(
+                Storage::disk('local')->get('dummy.service.json')
+            );
+
+            $this->addService($serv);
+
+            $serv->setSlug('gmail');
+            $serv->setTitle('gmail');
+            $this->addService($serv);
+
+            $serv->setSlug('amazon');
+            $serv->setTitle('amazon');
+            $serv->setCategory('shopping');
+            $this->addService($serv);
+
+        } catch (FileNotFoundException $e) {
+            throw $e;
+        }
     }
 
 }
