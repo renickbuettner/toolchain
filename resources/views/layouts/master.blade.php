@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="/css/app.css">
-    <title>@yield('title') Toolchain</title>
+    <title>@yield('title') | Toolchain</title>
 </head>
 <body>
 <!--
@@ -23,7 +23,19 @@
 </div>
 @endif-->
 
-@yield('body')
+<section class="row m-0 ui">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3 sidebar">
+        <header>
+            <h1>Toolchain</h1>
+            <h5>Beat your toolchain mess</h5>
+        </header>
+
+        @include('partials.sidebar')
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9 offset-lg-3">
+        @yield('body')
+    </div>
+</section>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
