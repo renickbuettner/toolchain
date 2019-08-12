@@ -26,10 +26,11 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');
 
-Route::match(
-    ['get', 'post', 'delete'],
-    '/service/{slug}',
-    'ServiceController@service'
-)->name('service');
+Route::get('/editor', 'EditorController@editor')->name('editor');
+
+Route::match(['put', 'post', 'delete'], '/service/{slug}', 'ServiceController@api')->name('api.service');
+Route::get('/service/{slug}', 'ServiceController@service')->name('service');

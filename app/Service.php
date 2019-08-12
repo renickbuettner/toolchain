@@ -2,6 +2,9 @@
 
 namespace Toolchain;
 
+use http\Exception\InvalidArgumentException;
+use Illuminate\Queue\InvalidPayloadException;
+
 class Service {
 
     protected $title;
@@ -17,22 +20,20 @@ class Service {
 
     public function setTitle(String $title) {
         $this->title = $title;
-        $this->slug = $this->convertSlug($title);
         return $this;
     }
 
     public function getSlug(): String {
-
         return $this->slug;
     }
 
-    public function setSlug(String $slug) {
+    public function setRawSlug(String $slug) {
         $this->slug = $slug;
         return $this;
     }
 
     public function getDescription(): String {
-        $this->description;
+        return $this->description;
     }
 
     public function setDescription(String $desc) {
@@ -42,6 +43,10 @@ class Service {
 
     public function getCategory(): String {
         return $this->category;
+    }
+
+    public function getInternalUrl(): String {
+        return url("/service/{$this->getSlug()}");
     }
 
     /**
@@ -77,7 +82,7 @@ class Service {
         return $this;
     }
 
-    private function convertSlug(String $title) {
+    public function setSlug(String $title) {
 
         // replace non letter or digits by -
         $slug = preg_replace('~[^\pL\d]+~u', '-', $title);
@@ -101,7 +106,8 @@ class Service {
             return 'n-a';
         }
 
-        return $slug;
+        $this->slug = $slug;
+        return $this;
     }
 
     public static function fromString(String $string): Service {
@@ -109,16 +115,17 @@ class Service {
 
         try {
             $obj = json_decode($string, false);
+
+            return $s->setUrl($obj->url)
+                ->setTitle($obj->title)
+                ->setDescription($obj->description)
+                ->setIcon($obj->icon)
+                ->setCategory($obj->category)
+                ->setSlug($obj->slug);
+
         } catch (\Exception $e) {
             throw $e;
         }
-
-        return $s->setUrl($obj->url)
-            ->setTitle($obj->title)
-            ->setDescription($obj->description)
-            ->setIcon($obj->icon)
-            ->setCategory($obj->category)
-            ->setSlug($obj->slug);
     }
 
     public function toString() {

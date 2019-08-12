@@ -2,6 +2,8 @@
 
 namespace Toolchain;
 
+use Dotenv\Exception\InvalidFileException;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +18,7 @@ class Services {
 
     public function __construct() {
         if ($this->services === null) {
-            $this->getFromDisk();
+            $this->readFromDisk();
         }
     }
 
@@ -48,8 +50,12 @@ class Services {
         }
     }
 
-    public function addService(Service $s) {
+    public function addService(Service $s, $writeToDisk = false) {
         $this->services[$s->getSlug()] = $s;
+
+        if ($writeToDisk) {
+            $this->writeToDisk([$s]);
+        }
 
         if (!in_array($s->getCategory(), $this->categories)) {
             $this->categories[] = $s->getCategory();
@@ -60,12 +66,19 @@ class Services {
         return $this->categories;
     }
 
-    public function removeService(Service $s) {
-        // remove from data set
+    public function removeService(String $slug, $removeFromDisk = true) {
+        try {
+            unset($this->services[$slug]);
+            Storage::disk('local')->delete($this->getInternalServiceFilePath($slug));
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     public function updateService(Service $s) {
-        $dump = $s->toString();
+        $this->removeService($s->getSlug(), true);
+        $this->addService($s, true);
     }
 
     public function addServiceFromString(String $s) {
@@ -76,29 +89,50 @@ class Services {
         }
     }
 
-    protected function getFromDisk() {
-        // load from database
-        // but just for now: dummy data
+    const SERVICE_PATH = '/services/';
 
+    protected function writeToDisk(Array $services): void {
         try {
-            $serv = Service::fromString(
-                Storage::disk('local')->get('dummy.service.json')
-            );
+            if (!Storage::disk('local')->exists(self::SERVICE_PATH)) {
+                Storage::disk('local')->makeDirectory(self::SERVICE_PATH);
+            }
 
-            $this->addService($serv);
+            foreach ($services as $s) {
+                if (!$s instanceof Service) {
+                    throw new InvalidArgumentException('Items is not instance of service');
+                }
 
-            $serv->setSlug('gmail');
-            $serv->setTitle('gmail');
-            $this->addService($serv);
+                Storage::disk('local')->put(
+                    $this->getInternalServiceFilePath($s->getSlug()),
+                    $s->toString()
+                );
+            }
 
-            $serv->setSlug('amazon');
-            $serv->setTitle('amazon');
-            $serv->setCategory('shopping');
-            $this->addService($serv);
-
-        } catch (FileNotFoundException $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    protected function readFromDisk(): void {
+        try {
+            foreach (Storage::disk('local')->files(self::SERVICE_PATH) as $file) {
+                try {
+                    $service = Service::fromString(Storage::disk('local')->get($file));
+
+                } catch (\Exception $e) {
+                    throw new InvalidFileException('The service ('.$file.') could not be loaded.');
+                }
+
+                $this->addService($service);
+            }
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    protected function getInternalServiceFilePath(String $slug): String {
+        return self::SERVICE_PATH.$slug;
     }
 
 }
