@@ -6598,3 +6598,10 @@ yargs@^7.1.0:
     which-module "^1.0.0"
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
+
+yarn-only@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/yarn-only/-/yarn-only-1.0.4.tgz#6aa8e9b7b0e90d972efd1d71b46e4c63257c2f64"
+  integrity sha512-sf5o847Lxyh7RTKJi/OfbM/Gwlx8s1oZy/nJh4BzmNwaDdiaPGVOD6nR0RLhpG9dhncEvEI5C9WeJAwEikoLhA==
+  dependencies:
+    chalk "^2.4.1"
