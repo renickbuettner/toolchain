@@ -32,7 +32,7 @@
 
         @include('partials.sidebar')
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-9 offset-lg-3">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9 offset-lg-3 content-area">
         @yield('body')
     </div>
 </section>

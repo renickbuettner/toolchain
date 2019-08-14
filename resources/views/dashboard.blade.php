@@ -4,6 +4,8 @@
 
 @section('body')
 
+    @include('partials/actions', ['actions' => ['print', 'ambience']])
+
     <h1>Dashboard</h1>
 
     @foreach ($services->getCategories() as $cat)

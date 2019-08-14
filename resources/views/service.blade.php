@@ -4,6 +4,8 @@
 
 @section('body')
 
+    @include('partials/actions', ['actions' => ['print', 'edit', 'delete', 'ambience']])
+
     <h1>Service</h1>
     <h2>{{ $service->getTitle() }}</h2>
 
