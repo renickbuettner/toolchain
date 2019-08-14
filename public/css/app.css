@@ -10662,6 +10662,10 @@ a.text-dark:focus {
   }
 }
 
+.content-area {
+  margin-top: 3.5rem;
+}
+
 .ui .sidebar {
   background-color: #3083c9;
   color: white;
@@ -10715,5 +10719,53 @@ a.text-dark:focus {
   .ui .sidebar header {
     padding-bottom: 4rem;
   }
+}
+
+.actions {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+}
+
+.actions .action {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  margin: 0 5px;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  transition: ease-in-out all 300ms;
+}
+
+.actions .action:hover {
+  opacity: 1;
+}
+
+.actions .action.delete {
+  background-image: url("/assets/icon-delete-trashcan.svg");
+}
+
+.actions .action.edit {
+  background-image: url("/assets/icon-edit.svg");
+}
+
+.actions .action.daymode {
+  background-image: url("/assets/icon-into-lightmode.svg");
+}
+
+.actions .action.ambience,
+.actions .action.nightmode {
+  background-image: url("/assets/icon-into-nightmode.svg");
+}
+
+.actions .action.print {
+  background-image: url("/assets/icon-print.svg");
+}
+
+.actions .action.save {
+  background-image: url("/assets/icon-save.svg");
 }
 
