@@ -12,6 +12,7 @@ export class ServiceEditor {
         this._icon = ''; // should be a string, too
 
         this._registerOnSave();
+        this._registerOnBack();
 
         if (slug === null) {
             // init a fresh form
@@ -80,4 +81,35 @@ export class ServiceEditor {
         }
     }
 
+    _registerOnBack() {
+        this._btnBack = document.getElementById('tceditorback');
+        this._btnBack.onclick = (event) => {
+            window.location.href = ServiceEditor.getPreviousRoute();
+        };
+    }
+
+    /**
+     * editor should start when needed
+     */
+    static watch() {
+        const _newEditor = window.location.pathname.match(/^\/editor$/gi);
+        if (_newEditor) {
+            window.tc.editor = new ServiceEditor(null);
+        } else if (!_newEditor && window.location.pathname.match(/^\/editor/gi)) {
+            window.tc.editor = new ServiceEditor(window.tc.api.getSlug());
+        }
+    }
+
+    /**
+     * decide where to navigation on back
+     * history.back() doesnt work because
+     * of accept-header from xhr request
+     */
+    static getPreviousRoute() {
+        if (window.tc.api.getSlug() ===  null) {
+            return window.tc.paths.dashboard;
+        } else {
+            return window.tc._service && window.tc._service.getServiceURL();
+        }
+    }
 }

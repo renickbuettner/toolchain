@@ -38,14 +38,26 @@ export class ToolchainAPI {
             });
     }
 
+    removeService(slug) {
+        if (!this._matchSlug(slug)) {
+            throw new Error(this._exceptionInvalidSlug);
+        }
+
+        window.axios.delete(`/service/${slug}`, {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}})
+            .then(function (response) {
+                window.location.href = window.tc.paths.dashboard;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     getSlug() {
         let slug = null;
-        const fromUrl = window.location.pathname.replace(/^\/editor\//gi, '');
+        const fromUrl = window.location.pathname.replace(/^(\/editor\/|\/service\/)/gi, '');
 
         if (this._matchSlug(fromUrl)) {
             slug = fromUrl;
-        } else {
-            throw new Error(this._exceptionInvalidSlug);
         }
 
         return slug;

@@ -5,19 +5,21 @@
  */
 import {ServiceEditor} from "./editor/serviceEditor";
 import {ToolchainAPI} from "./api/api";
+import {ActionsToolbar} from "./generals/actions";
 
 require('./bootstrap');
 
 window.tc = {
     shortInfo: 'This is the toolchain framework',
     version: '1.0.0',
-    api: new ToolchainAPI()
+    paths: {
+        dashboard: '/dashboard'
+    }
 };
 
-// create a new service
-const _newEditor = window.location.pathname.match(/^\/editor$/gi);
-if (_newEditor) {
- window.tc.editor = new ServiceEditor(null);
-} else if (!_newEditor && window.location.pathname.match(/^\/editor/gi)) {
-    window.tc.editor = new ServiceEditor(window.tc.api.getSlug());
-}
+// add dependencies
+window.tc.api = new ToolchainAPI();
+window.tc.actions = new ActionsToolbar();
+
+// initiate editor if needed
+ServiceEditor.watch();

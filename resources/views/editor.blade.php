@@ -56,7 +56,7 @@
     <div class="form-group row">
         <div class="offset-3 col-9">
             <button id="tceditorsubmit" class="btn btn-primary">Submit</button>
-            <button class="btn btn-secondary" onclick="window.history.back()">Zurück</button>
+            <button id="tceditorback" class="btn btn-secondary">Zurück</button>
         </div>
     </div>
 

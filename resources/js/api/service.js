@@ -72,7 +72,19 @@ export class Service {
     }
 
     getServiceURL() {
-        return `/service/${this.slug}`;
+        return Service.serviceUrl(this.slug);
+    }
+
+    getEditorURL() {
+        return Service.editorUrl(this.slug);
+    }
+
+    static serviceUrl(slug) {
+        return `/service/${slug}`;
+    }
+
+    static editorUrl(slug) {
+        return `/editor/${slug}`;
     }
 }
 

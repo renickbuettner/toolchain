@@ -19218,15 +19218,31 @@ function () {
       });
     }
   }, {
+    key: "removeService",
+    value: function removeService(slug) {
+      if (!this._matchSlug(slug)) {
+        throw new Error(this._exceptionInvalidSlug);
+      }
+
+      window.axios["delete"]("/service/".concat(slug), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
+        window.location.href = window.tc.paths.dashboard;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "getSlug",
     value: function getSlug() {
       var slug = null;
-      var fromUrl = window.location.pathname.replace(/^\/editor\//gi, '');
+      var fromUrl = window.location.pathname.replace(/^(\/editor\/|\/service\/)/gi, '');
 
       if (this._matchSlug(fromUrl)) {
         slug = fromUrl;
-      } else {
-        throw new Error(this._exceptionInvalidSlug);
       }
 
       return slug;
@@ -19300,7 +19316,12 @@ function () {
   }, {
     key: "getServiceURL",
     value: function getServiceURL() {
-      return "/service/".concat(this.slug);
+      return Service.serviceUrl(this.slug);
+    }
+  }, {
+    key: "getEditorURL",
+    value: function getEditorURL() {
+      return Service.editorUrl(this.slug);
     }
   }, {
     key: "title",
@@ -19350,6 +19371,16 @@ function () {
     set: function set(value) {
       this._category = value;
     }
+  }], [{
+    key: "serviceUrl",
+    value: function serviceUrl(slug) {
+      return "/service/".concat(slug);
+    }
+  }, {
+    key: "editorUrl",
+    value: function editorUrl(slug) {
+      return "/editor/".concat(slug);
+    }
   }]);
 
   return Service;
@@ -19368,6 +19399,7 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor/serviceEditor */ "./resources/js/editor/serviceEditor.js");
 /* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api */ "./resources/js/api/api.js");
+/* harmony import */ var _generals_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./generals/actions */ "./resources/js/generals/actions.js");
 /**
  * First, we will load all of this project's Javascript utilities and other
  * dependencies. Then, we will be ready to develop a robust and powerful
@@ -19376,21 +19408,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.tc = {
   shortInfo: 'This is the toolchain framework',
   version: '1.0.0',
-  api: new _api_api__WEBPACK_IMPORTED_MODULE_1__["ToolchainAPI"]()
-}; // create a new service
+  paths: {
+    dashboard: '/dashboard'
+  }
+}; // add dependencies
 
-var _newEditor = window.location.pathname.match(/^\/editor$/gi);
+window.tc.api = new _api_api__WEBPACK_IMPORTED_MODULE_1__["ToolchainAPI"]();
+window.tc.actions = new _generals_actions__WEBPACK_IMPORTED_MODULE_2__["ActionsToolbar"](); // initiate editor if needed
 
-if (_newEditor) {
-  window.tc.editor = new _editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__["ServiceEditor"](null);
-} else if (!_newEditor && window.location.pathname.match(/^\/editor/gi)) {
-  window.tc.editor = new _editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__["ServiceEditor"](window.tc.api.getSlug());
-}
+_editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__["ServiceEditor"].watch();
 
 /***/ }),
 
@@ -19474,6 +19506,8 @@ function () {
 
     this._registerOnSave();
 
+    this._registerOnBack();
+
     if (slug === null) {// init a fresh form
     } else {
       this._slug = slug;
@@ -19551,9 +19585,151 @@ function () {
         _this._api.putService(service);
       };
     }
+  }, {
+    key: "_registerOnBack",
+    value: function _registerOnBack() {
+      this._btnBack = document.getElementById('tceditorback');
+
+      this._btnBack.onclick = function (event) {
+        window.location.href = ServiceEditor.getPreviousRoute();
+      };
+    }
+    /**
+     * editor should start when needed
+     */
+
+  }], [{
+    key: "watch",
+    value: function watch() {
+      var _newEditor = window.location.pathname.match(/^\/editor$/gi);
+
+      if (_newEditor) {
+        window.tc.editor = new ServiceEditor(null);
+      } else if (!_newEditor && window.location.pathname.match(/^\/editor/gi)) {
+        window.tc.editor = new ServiceEditor(window.tc.api.getSlug());
+      }
+    }
+    /**
+     * decide where to navigation on back
+     * history.back() doesnt work because
+     * of accept-header from xhr request
+     */
+
+  }, {
+    key: "getPreviousRoute",
+    value: function getPreviousRoute() {
+      if (window.tc.api.getSlug() === null) {
+        return window.tc.paths.dashboard;
+      } else {
+        return window.tc._service && window.tc._service.getServiceURL();
+      }
+    }
   }]);
 
   return ServiceEditor;
+}();
+
+/***/ }),
+
+/***/ "./resources/js/generals/actions.js":
+/*!******************************************!*\
+  !*** ./resources/js/generals/actions.js ***!
+  \******************************************/
+/*! exports provided: ActionsToolbar */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionsToolbar", function() { return ActionsToolbar; });
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api/service */ "./resources/js/api/service.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+var ActionsToolbar =
+/*#__PURE__*/
+function () {
+  function ActionsToolbar() {
+    _classCallCheck(this, ActionsToolbar);
+
+    var element = document.getElementById('tcactions');
+
+    if (element && element.classList && element.classList.contains('actions')) {
+      this._api = window.tc.api;
+
+      try {
+        this._render(element);
+      } catch (e) {
+        console.debug(e);
+      }
+    }
+  }
+  /**
+   * render toolbar
+   * @private
+   */
+
+
+  _createClass(ActionsToolbar, [{
+    key: "_render",
+    value: function _render(element) {
+      this._actions = element;
+      this._btns = []; // add icons if enabled
+
+      this._addActionDelete();
+
+      this._addActionEdit();
+    }
+    /**
+     * register event listener for delete button
+     * @private
+     */
+
+  }, {
+    key: "_addActionEdit",
+    value: function _addActionEdit() {
+      var _this = this;
+
+      var btn = this._actions.getElementsByClassName('edit')[0];
+
+      if (btn === undefined) {
+        return;
+      }
+
+      btn.onclick = function (event) {
+        window.location.href = _api_service__WEBPACK_IMPORTED_MODULE_0__["Service"].editorUrl(_this._api.getSlug());
+      }.bind(this);
+
+      this._btns.edit = btn;
+    }
+    /**
+     * register event listener for delete button
+     * @private
+     */
+
+  }, {
+    key: "_addActionDelete",
+    value: function _addActionDelete() {
+      var _this2 = this;
+
+      var btn = this._actions.getElementsByClassName('delete')[0];
+
+      if (btn === undefined) {
+        return;
+      }
+
+      btn.onclick = function (event) {
+        _this2._api.removeService(window.tc.api.getSlug());
+      }.bind(this);
+
+      this._btns["delete"] = btn;
+    }
+  }]);
+
+  return ActionsToolbar;
 }();
 
 /***/ }),
