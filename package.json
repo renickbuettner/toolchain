@@ -19,7 +19,9 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "jquery": "^3.3.1",
+        "popper.js": "^1.14.7"
     },
     "dependencies": {
         "gulp": "^4.0.2",

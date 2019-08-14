@@ -10666,6 +10666,11 @@ a.text-dark:focus {
   margin-top: 3.5rem;
 }
 
+.modal-backdrop.show {
+  background-color: #e6e6e6;
+  opacity: 1;
+}
+
 .ui .sidebar {
   background-color: #3083c9;
   color: white;

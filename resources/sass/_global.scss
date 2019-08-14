@@ -2,3 +2,8 @@
     // because of .actions toolbar
     margin-top: 3.5rem;
 }
+
+.modal-backdrop.show {
+    background-color: #e6e6e6;
+    opacity: 1;
+}
