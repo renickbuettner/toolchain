@@ -11,6 +11,8 @@
 |
 */
 
+App::setLocale('en');
+
 Route::pattern('slug', '[a-z-0-9]+');
 
 
