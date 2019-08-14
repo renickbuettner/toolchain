@@ -13,7 +13,7 @@ use Toolchain\Services as ServicesModel;
 |
 */
 
-Route::pattern('slug', '[a-z0-9]+');
+Route::pattern('slug', '[a-z-0-9]+');
 
 
 Route::get('/', function () {
@@ -30,6 +30,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');
 
+Route::get('/editor/{slug}', 'EditorController@editor')->name('editor-slug');
 Route::get('/editor', 'EditorController@editor')->name('editor');
 
 Route::match(['put', 'post', 'delete'], '/service/{slug}', 'ServiceController@api')->name('api.service');

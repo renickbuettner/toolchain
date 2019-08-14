@@ -19179,11 +19179,13 @@ var ToolchainAPI =
 function () {
   function ToolchainAPI() {
     _classCallCheck(this, ToolchainAPI);
+
+    this._exceptionInvalidSlug = 'Invalid slug exception';
   }
 
   _createClass(ToolchainAPI, [{
     key: "putService",
-    set: function set(service) {
+    value: function putService(service) {
       if (service instanceof _service__WEBPACK_IMPORTED_MODULE_0__["Service"]) {
         throw new Error('Cannot put non-service object');
       }
@@ -19194,6 +19196,38 @@ function () {
       })["catch"](function (error) {
         console.log(error);
       });
+    }
+  }, {
+    key: "getService",
+    value: function getService(slug, callback) {
+      if (!this._matchSlug(slug)) {
+        throw new Error(this._exceptionInvalidSlug);
+      }
+
+      axios.get("/service/".concat(service.slug)).then(function (response) {
+        callback(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "getSlug",
+    value: function getSlug() {
+      var slug = null;
+      var fromUrl = window.location.pathname.replace(/^\/editor\//gi, '');
+
+      if (this._matchSlug(fromUrl)) {
+        slug = fromUrl;
+      } else {
+        throw new Error(this._exceptionInvalidSlug);
+      }
+
+      return slug;
+    }
+  }, {
+    key: "_matchSlug",
+    value: function _matchSlug(slug) {
+      return slug.match(/^[a-z-0-9]+$/);
     }
   }]);
 
@@ -19315,23 +19349,36 @@ function () {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor/serviceEditor */ "./resources/js/editor/serviceEditor.js");
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/api */ "./resources/js/api/api.js");
 /**
  * First, we will load all of this project's Javascript utilities and other
  * dependencies. Then, we will be ready to develop a robust and powerful
  * application frontend using useful Laravel and JavaScript libraries.
  */
+
+
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.tc = {
   shortInfo: 'This is the toolchain framework',
   version: '1.0.0',
-  api: __webpack_require__(/*! ./api/api */ "./resources/js/api/api.js")
-};
+  api: new _api_api__WEBPACK_IMPORTED_MODULE_1__["ToolchainAPI"]()
+}; // create a new service
 
-__webpack_require__(/*! ./editor/editor */ "./resources/js/editor/editor.js");
+var _newEditor = window.location.pathname.match(/^\/editor$/gi);
+
+if (_newEditor) {
+  window.tc.editor = new _editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__["ServiceEditor"](null);
+} else if (!_newEditor && window.location.pathname.match(/^\/editor/gi)) {
+  window.tc.editor = new _editor_serviceEditor__WEBPACK_IMPORTED_MODULE_0__["ServiceEditor"](window.tc.api.getSlug());
+}
 
 /***/ }),
 
@@ -19380,50 +19427,75 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/editor/editor.js":
-/*!***************************************!*\
-  !*** ./resources/js/editor/editor.js ***!
-  \***************************************/
-/*! exports provided: Editor */
+/***/ "./resources/js/editor/serviceEditor.js":
+/*!**********************************************!*\
+  !*** ./resources/js/editor/serviceEditor.js ***!
+  \**********************************************/
+/*! exports provided: ServiceEditor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Editor", function() { return Editor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceEditor", function() { return ServiceEditor; });
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api/service */ "./resources/js/api/service.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Editor =
+
+var ServiceEditor =
 /*#__PURE__*/
 function () {
-  function Editor(parentElement) {
-    _classCallCheck(this, Editor);
+  function ServiceEditor(slug) {
+    _classCallCheck(this, ServiceEditor);
 
-    if (parentElement && parentElement.type !== 'textarea') {
-      throw new Error('Invalid editor parent-element type. Must be a textarea');
+    this._title = document.getElementById('tctitle');
+    this._url = document.getElementById('tcurl');
+    this._description = document.getElementById('tcdescription');
+    this._category = document.getElementById('tccategory');
+    this._slug = ''; // should be a string
+
+    this._icon = ''; // should be a string, too
+
+    if (slug === null) {// init a fresh form
+    } else {
+      this._slug = slug;
     }
-
-    this._parentElement = parentElement;
-
-    this._renderEditor();
   }
 
-  _createClass(Editor, [{
-    key: "_renderEditor",
-    value: function _renderEditor() {// to some fancy stuff
+  _createClass(ServiceEditor, [{
+    key: "submitForm",
+    value: function submitForm() {}
+    /**
+     * returns Service object
+     * @private
+     */
+
+  }, {
+    key: "_getFormData",
+    value: function _getFormData() {
+      var payload;
+
+      try {
+        payload = {
+          title: this._title.value,
+          description: this._description.value,
+          url: this._url.value,
+          slug: this._slug,
+          icon: this._icon,
+          category: this._category.value
+        };
+      } catch (e) {
+        throw e;
+      }
+
+      return new _api_service__WEBPACK_IMPORTED_MODULE_0__["Service"](payload);
     }
-  }, {
-    key: "getContent",
-    get: function get() {}
-  }, {
-    key: "setContent",
-    set: function set(html) {}
   }]);
 
-  return Editor;
+  return ServiceEditor;
 }();
 
 /***/ }),
