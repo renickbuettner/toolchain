@@ -12,6 +12,7 @@ use function GuzzleHttp\default_ca_bundle;
 class ServiceController extends Controller
 {
     private $services;
+    private $oldSlug;
 
     public function __construct() {
         $this->services = new Services();
@@ -53,15 +54,11 @@ class ServiceController extends Controller
 
             try {
                 $payload = json_decode(request()->getContent(), false);
+                $this->oldSlug = $payload->slug;
 
                 $service = new Service();
                 $service->setTitle($payload->title);
-                if ($payload->slug === '') {
-                    // creates safe slug from title
-                    $service->setSlug($payload->title);
-                } else {
-                    $service->setSlug($payload->slug);
-                }
+                $service->setSlug($payload->title);
                 $service->setCategory($payload->category);
                 $service->setDescription($payload->description);
                 $service->setIcon($payload->icon);
@@ -102,12 +99,10 @@ class ServiceController extends Controller
     }
 
     protected function update(String $slug, Service $service) {
-        if ($service->getSlug() !== $this->services->getService($slug)->getSlug()) {
-            throw new InvalidPayloadException('You can not change the slug');
-        }
 
         try {
             $this->services->updateService($service, true);
+            $this->services->removeService($this->oldSlug);
 
             return $service->toString();
 

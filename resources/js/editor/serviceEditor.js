@@ -3,6 +3,7 @@ import {Service} from "../api/service";
 export class ServiceEditor {
 
     constructor(slug) {
+        this._api = window.tc.api;
         this._title = document.getElementById('tctitle');
         this._url = document.getElementById('tcurl');
         this._description = document.getElementById('tcdescription');
@@ -10,18 +11,20 @@ export class ServiceEditor {
         this._slug = ''; // should be a string
         this._icon = ''; // should be a string, too
 
+        this._registerOnSave();
+
         if (slug === null) {
             // init a fresh form
         } else {
             this._slug = slug;
-            window.tc.api.getService(slug);
+            this._api.getService(slug);
         }
     }
 
     submitForm() {
         try {
             const service = this._getFormData();
-            window.tc.api.putService(service);
+            this._api.putService(service);
 
         } catch (e) {
             console.error(e);
@@ -64,6 +67,17 @@ export class ServiceEditor {
         }
 
         return new Service(payload);
+    }
+
+    /**
+     * register event listener for save button
+     */
+    _registerOnSave() {
+        this._btnSubmit = document.getElementById('tceditorsubmit');
+        this._btnSubmit.onclick = (event) => {
+            const service = this._getFormData();
+            this._api.putService(service);
+        }
     }
 
 }

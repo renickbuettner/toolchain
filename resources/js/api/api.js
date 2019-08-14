@@ -12,8 +12,9 @@ export class ToolchainAPI {
         }
 
         const path = (service.slug === '') ? '/service/create' : `/service/${service.slug}`;
+        const method = (service.slug === '') ? 'post' : 'put';
 
-        window.axios.post(path, service.getArray())
+        window.axios[method](path, service.getArray())
             .then(function (response) {
                 window.location.href = `/service/${response.data.slug}`;
             })

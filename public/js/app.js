@@ -19191,7 +19191,8 @@ function () {
       }
 
       var path = service.slug === '' ? '/service/create' : "/service/".concat(service.slug);
-      window.axios.post(path, service.getArray()).then(function (response) {
+      var method = service.slug === '' ? 'post' : 'put';
+      window.axios[method](path, service.getArray()).then(function (response) {
         window.location.href = "/service/".concat(response.data.slug);
       })["catch"](function (error) {
         console.log(error);
@@ -19462,6 +19463,7 @@ function () {
   function ServiceEditor(slug) {
     _classCallCheck(this, ServiceEditor);
 
+    this._api = window.tc.api;
     this._title = document.getElementById('tctitle');
     this._url = document.getElementById('tcurl');
     this._description = document.getElementById('tcdescription');
@@ -19470,10 +19472,13 @@ function () {
 
     this._icon = ''; // should be a string, too
 
+    this._registerOnSave();
+
     if (slug === null) {// init a fresh form
     } else {
       this._slug = slug;
-      window.tc.api.getService(slug);
+
+      this._api.getService(slug);
     }
   }
 
@@ -19483,7 +19488,7 @@ function () {
       try {
         var service = this._getFormData();
 
-        window.tc.api.putService(service);
+        this._api.putService(service);
       } catch (e) {
         console.error(e);
         alert('The request has not been send to the server. Internal error.');
@@ -19528,6 +19533,23 @@ function () {
       }
 
       return new _api_service__WEBPACK_IMPORTED_MODULE_0__["Service"](payload);
+    }
+    /**
+     * register event listener for save button
+     */
+
+  }, {
+    key: "_registerOnSave",
+    value: function _registerOnSave() {
+      var _this = this;
+
+      this._btnSubmit = document.getElementById('tceditorsubmit');
+
+      this._btnSubmit.onclick = function (event) {
+        var service = _this._getFormData();
+
+        _this._api.putService(service);
+      };
     }
   }]);
 
