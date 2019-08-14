@@ -49,3 +49,4 @@ npm run watch
 // Run all Mix tasks and minify output...
 npm run production
 ````
+ 

@@ -1,0 +1,39 @@
+$iconDelete: '/assets/icon-delete-trashcan.svg';
+$iconEdit: '/assets/icon-edit.svg';
+$iconPrint: '/assets/icon-print.svg';
+$iconSave: '/assets/icon-save.svg';
+$iconNightMode: '/assets/icon-into-nightmode.svg';
+$iconDayMode: '/assets/icon-into-lightmode.svg';
+
+$padBorder: 1rem;
+$iconSize: 32px;
+
+.actions {
+    position: fixed;
+    right: $padBorder;
+    top: $padBorder;
+
+    .action {
+        display: inline-block;
+        width: $iconSize;
+        height: $iconSize;
+        margin: 0;
+        margin: 0 5px;
+        background-position: center center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        transition: ease-in-out all 300ms;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.delete { background-image: url($iconDelete); }
+        &.edit { background-image: url($iconEdit); }
+        &.daymode { background-image: url($iconDayMode); }
+        &.ambience, &.nightmode { background-image: url($iconNightMode); }
+        &.print { background-image: url($iconPrint); }
+        &.save { background-image: url($iconSave); }
+    }
+}

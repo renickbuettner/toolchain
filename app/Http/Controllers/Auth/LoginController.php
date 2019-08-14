@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Toolchain\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Toolchain\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\User;
 use Laravel\Socialite\Facades\Socialite;
