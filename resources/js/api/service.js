@@ -56,7 +56,7 @@ export class Service {
         this._category = value;
     }
 
-    get toArray() {
+    getArray() {
         return {
             'title': this.title,
             'description': this.description,
@@ -67,8 +67,12 @@ export class Service {
         };
     }
 
-    get serialize() {
-        return JSON.stringify(this.toArray());
+    serialize() {
+        return JSON.stringify(this.getArray());
+    }
+
+    getServiceURL() {
+        return `/service/${this.slug}`;
     }
 }
 

@@ -19186,26 +19186,32 @@ function () {
   _createClass(ToolchainAPI, [{
     key: "putService",
     value: function putService(service) {
-      if (service instanceof _service__WEBPACK_IMPORTED_MODULE_0__["Service"]) {
+      if (!service instanceof _service__WEBPACK_IMPORTED_MODULE_0__["Service"]) {
         throw new Error('Cannot put non-service object');
       }
 
-      var payload = service.toArray();
-      axios.post("/service/".concat(service.slug), payload).then(function (response) {
-        console.log(response);
+      var path = service.slug === '' ? '/service/create' : "/service/".concat(service.slug);
+      window.axios.post(path, service.getArray()).then(function (response) {
+        window.location.href = "/service/".concat(response.data.slug);
       })["catch"](function (error) {
         console.log(error);
       });
     }
   }, {
     key: "getService",
-    value: function getService(slug, callback) {
+    value: function getService(slug) {
       if (!this._matchSlug(slug)) {
         throw new Error(this._exceptionInvalidSlug);
       }
 
-      axios.get("/service/".concat(service.slug)).then(function (response) {
-        callback(response);
+      window.axios.get("/service/".concat(slug), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
+        window.tc._service = new _service__WEBPACK_IMPORTED_MODULE_0__["Service"](response.data);
+        window.tc.editor.loadService(window.tc._service);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -19274,6 +19280,28 @@ function () {
   }
 
   _createClass(Service, [{
+    key: "getArray",
+    value: function getArray() {
+      return {
+        'title': this.title,
+        'description': this.description,
+        'url': this.url,
+        'slug': this.slug,
+        'icon': this.icon,
+        'category': this.category
+      };
+    }
+  }, {
+    key: "serialize",
+    value: function serialize() {
+      return JSON.stringify(this.getArray());
+    }
+  }, {
+    key: "getServiceURL",
+    value: function getServiceURL() {
+      return "/service/".concat(this.slug);
+    }
+  }, {
     key: "title",
     get: function get() {
       return this._title;
@@ -19320,23 +19348,6 @@ function () {
     },
     set: function set(value) {
       this._category = value;
-    }
-  }, {
-    key: "toArray",
-    get: function get() {
-      return {
-        'title': this.title,
-        'description': this.description,
-        'url': this.url,
-        'slug': this.slug,
-        'icon': this.icon,
-        'category': this.category
-      };
-    }
-  }, {
-    key: "serialize",
-    get: function get() {
-      return JSON.stringify(this.toArray());
     }
   }]);
 
@@ -19462,12 +19473,37 @@ function () {
     if (slug === null) {// init a fresh form
     } else {
       this._slug = slug;
+      window.tc.api.getService(slug);
     }
   }
 
   _createClass(ServiceEditor, [{
     key: "submitForm",
-    value: function submitForm() {}
+    value: function submitForm() {
+      try {
+        var service = this._getFormData();
+
+        window.tc.api.putService(service);
+      } catch (e) {
+        console.error(e);
+        alert('The request has not been send to the server. Internal error.');
+      }
+    }
+  }, {
+    key: "loadService",
+    value: function loadService(service) {
+      try {
+        this._title.value = service.title;
+        this._url.value = service.url;
+        this._description.value = service.description;
+        this._category.value = service.category;
+        this._slug = service.slug;
+        this._icon = service.icon;
+      } catch (e) {
+        console.debug(e);
+        throw new Error('Can not load service');
+      }
+    }
     /**
      * returns Service object
      * @private

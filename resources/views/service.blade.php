@@ -17,4 +17,8 @@
         {!! $service->getDescription() !!}
     </div>
 
+    <hr>
+
+    <a class="btn btn-lg btn-warning" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
+
 @endsection

@@ -32,6 +32,8 @@ class Services {
                     }
                 }
             }
+
+            return $filtered;
         }
 
         return $this->services;

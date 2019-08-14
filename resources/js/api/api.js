@@ -7,29 +7,30 @@ export class ToolchainAPI {
     }
 
     putService(service) {
-        if (service instanceof Service) {
+        if (!service instanceof Service) {
             throw new Error('Cannot put non-service object');
         }
 
-        const payload = service.toArray();
+        const path = (service.slug === '') ? '/service/create' : `/service/${service.slug}`;
 
-        axios.post(`/service/${service.slug}`, payload)
+        window.axios.post(path, service.getArray())
             .then(function (response) {
-                console.log(response);
+                window.location.href = `/service/${response.data.slug}`;
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
-    getService(slug, callback) {
+    getService(slug) {
         if (!this._matchSlug(slug)) {
             throw new Error(this._exceptionInvalidSlug);
         }
 
-        axios.get(`/service/${service.slug}`)
+        window.axios.get(`/service/${slug}`, {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}})
             .then(function (response) {
-                callback(response)
+                window.tc._service = new Service(response.data);
+                window.tc.editor.loadService(window.tc._service);
             })
             .catch(function (error) {
                 console.log(error);

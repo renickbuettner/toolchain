@@ -56,8 +56,12 @@ class ServiceController extends Controller
 
                 $service = new Service();
                 $service->setTitle($payload->title);
-                $service->setSlug($payload->title); // creates safe slug from title
-                $service->setSlug($payload->slug);
+                if ($payload->slug === '') {
+                    // creates safe slug from title
+                    $service->setSlug($payload->title);
+                } else {
+                    $service->setSlug($payload->slug);
+                }
                 $service->setCategory($payload->category);
                 $service->setDescription($payload->description);
                 $service->setIcon($payload->icon);
@@ -72,7 +76,7 @@ class ServiceController extends Controller
 
         switch (strtolower(request()->method())) {
             case 'post':
-                $body = $this->create($slug, $service);
+                $body = $this->create($service->getSlug(), $service);
                 break;
             case 'put':
                 $body = $this->update($slug, $service);

@@ -14,11 +14,34 @@ export class ServiceEditor {
             // init a fresh form
         } else {
             this._slug = slug;
+            window.tc.api.getService(slug);
         }
     }
 
     submitForm() {
+        try {
+            const service = this._getFormData();
+            window.tc.api.putService(service);
 
+        } catch (e) {
+            console.error(e);
+            alert('The request has not been send to the server. Internal error.');
+        }
+    }
+
+    loadService(service) {
+        try {
+            this._title.value = service.title;
+            this._url.value = service.url;
+            this._description.value = service.description;
+            this._category.value = service.category;
+            this._slug = service.slug;
+            this._icon = service.icon;
+
+        } catch (e) {
+            console.debug(e);
+            throw new Error('Can not load service');
+        }
     }
 
     /**

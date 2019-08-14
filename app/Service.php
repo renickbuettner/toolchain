@@ -49,6 +49,10 @@ class Service {
         return url("/service/{$this->getSlug()}");
     }
 
+    public function getInternalEditorUrl(): String {
+        return url("/editor/{$this->getSlug()}");
+    }
+
     /**
      * Convert a category in a safe state.
      * Because it has to be equal on multiple
