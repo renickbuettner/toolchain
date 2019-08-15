@@ -8,7 +8,7 @@
     <title>@yield('title') | Toolchain</title>
 </head>
 <body>
-<!--
+
 @if (Route::has('login'))
 <div class="top-right links">
     @auth
@@ -21,7 +21,7 @@
     @endif
     @endauth
 </div>
-@endif-->
+@endif
 
 <section class="row m-0 ui">
     <div class="col-12 col-sm-12 col-md-12 col-lg-3 sidebar">

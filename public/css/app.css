@@ -10683,10 +10683,11 @@ a.text-dark:focus {
 
 .ui .sidebar .ui-group .ui-btn {
   display: block;
-  padding: 1rem 2rem 1rem 4rem;
+  padding: 1rem 2rem 1rem 2rem;
   color: white;
   transition: all ease-in-out 100ms;
   border-radius: 3px;
+  font-size: 1.2rem;
 }
 
 .ui .sidebar .ui-group .ui-btn:hover,
@@ -10700,16 +10701,6 @@ a.text-dark:focus {
   box-shadow: inset 0px 0px 5px 3px #a3a3a3;
 }
 
-.ui .sidebar .ui-group .ui-btn::before {
-  display: block;
-  content: " ";
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  margin-left: -2.5rem;
-  margin-top: -0.25rem;
-  background: yellowgreen;
-}
 
 @media (min-width: 992px) {
   .ui .sidebar {
@@ -10774,3 +10765,10 @@ a.text-dark:focus {
   background-image: url("/assets/icon-save.svg");
 }
 
+
+.sidebar-icon {
+  float: left;
+  width: 1.5rem;
+  height: auto;
+  margin-right: 2rem;
+}
