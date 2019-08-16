@@ -6,20 +6,30 @@
 
     @include('partials/actions', ['actions' => ['print', 'edit', 'delete', 'ambience']])
 
-    <h2>{{ $service->getTitle() }}</h2>
-
-    <h4>{{ $service->getCategory() }}</h4>
-
-    <img src="{{ $service->getIcon() }}" class="img-thumbnail">
-
-    <hr>
-
-    <div class="description">
-        {!! $service->getDescription() !!}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>{{ $service->getTitle() }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>{{ $service->getCategory() }}</h4>
+            </div>
+        </div>
+            <!-- <img src="{{ $service->getIcon() }}" class="img-thumbnail"> -->
+        <div class="row">
+            <div class="description">
+                <div class="col-8">
+                    {!! $service->getDescription() !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a class="btn btn-lg btn-primary" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
+            </div>
+        </div>
     </div>
-
-    <hr>
-
-    <a class="btn btn-lg btn-primary" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
 
 @endsection
