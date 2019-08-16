@@ -7,7 +7,7 @@
 
         <a href="{{url($item->getUrl())}}" class="ui-btn">
             <div class="sidebar-icon">
-                <img src="{{$item->getIcon()}}" alt="icon" />
+                <img src="{{$item->getIcon()}}" alt="icon" class="sidebar-icon"/>
             </div>
             @lang($item->getLocale())
         </a>
