@@ -5,9 +5,6 @@
 @import 'variables';
 
 
-// Global styles
-@import 'global';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -16,3 +13,7 @@
 
 // Add actions - alias toolbar
 @import 'actions';
+
+// Global styles
+@import 'global';
+

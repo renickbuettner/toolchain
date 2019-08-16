@@ -1,30 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
-.content-area {
-  margin-top: 3.5rem;
-}
-
-.modal-backdrop.show {
-  background-color: #e6e6e6;
-  opacity: 1;
-}
-
-.sidebar-icon {
-  float: left;
-  width: 2.5rem;
-  height: 2rem;
-  margin-right: 2rem;
-}
-
-.description {
-  padding: 2rem 0;
-}
-
-.ui .sidebar .ui-group .ui-btn {
-  font-size: 1.2rem;
-  padding: 1rem 2rem 1rem 2rem;
-}
-
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10699,10 +10674,11 @@ a.text-dark:focus {
 
 .ui .sidebar .ui-group .ui-btn {
   display: block;
-  padding: 1rem 2rem 1rem 4rem;
+  padding: 1rem 2rem 1rem 2rem;
   color: white;
   transition: all ease-in-out 100ms;
   border-radius: 3px;
+  font-size: 1.2rem;
 }
 
 .ui .sidebar .ui-group .ui-btn:hover,
@@ -10777,5 +10753,25 @@ a.text-dark:focus {
 
 .actions .action.save {
   background-image: url("/assets/icon-save.svg");
+}
+
+.content-area {
+  margin-top: 3.5rem;
+}
+
+.modal-backdrop.show {
+  background-color: #e6e6e6;
+  opacity: 1;
+}
+
+.sidebar-icon {
+  float: left;
+  width: 2.5rem;
+  height: 2rem;
+  margin-right: 2rem;
+}
+
+.description {
+  padding: 2rem 0;
 }
 
