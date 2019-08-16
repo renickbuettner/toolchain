@@ -36,6 +36,10 @@ class Services {
             return $filtered;
         }
 
+        if ($this->services === null) {
+            $this->readFromDisk();
+        }
+
         return $this->services;
     }
 
@@ -53,6 +57,15 @@ class Services {
     }
 
     public function addService(Service $s, $writeToDisk = false) {
+        /**
+         * prevent overwrites by slug with
+         * checking and appending a string
+         * at the end of the slug
+         */
+        if (in_array($s->getSlug(), $this->getServices())) {
+            $s->setSlug($s->getSlug() . "-2");
+        }
+
         $this->services[$s->getSlug()] = $s;
 
         if ($writeToDisk) {

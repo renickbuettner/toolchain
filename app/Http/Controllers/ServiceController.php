@@ -54,11 +54,24 @@ class ServiceController extends Controller
 
             try {
                 $payload = json_decode(request()->getContent(), false);
-                $this->oldSlug = $payload->slug;
+
+                /**
+                 * Get the slug from the url parameter
+                 */
+                $this->oldSlug = $slug;
 
                 $service = new Service();
                 $service->setTitle($payload->title);
-                $service->setSlug($payload->title);
+
+                /**
+                 * Don't re-set slug when on creating page
+                 * as well as payload doesn't contain a
+                 * new slug name.
+                 */
+                if ($this->oldSlug !== 'create' && $payload->slug !== '') {
+                    $service->setSlug($payload->title);
+                }
+
                 $service->setCategory($payload->category);
                 $service->setDescription($payload->description);
                 $service->setIcon($payload->icon);
@@ -89,6 +102,7 @@ class ServiceController extends Controller
 
     protected function create(String $slug, Service $service) {
         try {
+
             $this->services->addService($service, true);
 
             return $service->toString();
@@ -101,7 +115,7 @@ class ServiceController extends Controller
     protected function update(String $slug, Service $service) {
 
         try {
-            if ($this->oldSlug === $slug) {
+            if ($this->oldSlug !== $slug) {
                 $this->services->updateService($service, true);
                 $this->services->removeService($this->oldSlug);
                 return $service->toString();
