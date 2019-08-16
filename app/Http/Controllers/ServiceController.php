@@ -101,9 +101,13 @@ class ServiceController extends Controller
     protected function update(String $slug, Service $service) {
 
         try {
-            $this->services->updateService($service, true);
-            $this->services->removeService($this->oldSlug);
+            if ($this->oldSlug === $slug) {
+                $this->services->updateService($service, true);
+                $this->services->removeService($this->oldSlug);
+                return $service->toString();
+            }
 
+            $this->services->updateService($service);
             return $service->toString();
 
         } catch (\Exception $e) {
