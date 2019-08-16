@@ -6,7 +6,6 @@
 
     @include('partials/actions', ['actions' => ['print', 'edit', 'delete', 'ambience']])
 
-    <h1>Service</h1>
     <h2>{{ $service->getTitle() }}</h2>
 
     <h4>{{ $service->getCategory() }}</h4>
@@ -21,6 +20,6 @@
 
     <hr>
 
-    <a class="btn btn-lg btn-warning" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
+    <a class="btn btn-lg btn-primary" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
 
 @endsection
