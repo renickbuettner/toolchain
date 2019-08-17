@@ -22,6 +22,8 @@ Route::get('/', function () {
 
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/redirect/{service}', 'SocialAuthController@redirect');
+Route::get('/callback/{service}', 'SocialAuthController@callback');
 
 Auth::routes();
 
@@ -34,3 +36,7 @@ Route::get('/editor', 'EditorController@editor')->name('editor');
 
 Route::match(['put', 'post', 'delete'], '/service/{slug}', 'ServiceController@api')->name('api.service');
 Route::get('/service/{slug}', 'ServiceController@service')->name('service');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

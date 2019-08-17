@@ -48,5 +48,9 @@ npm run watch
 
 // Run all Mix tasks and minify output...
 npm run production
+
+// dont forget so setup the database
+php artisan migrate
+
 ````
  

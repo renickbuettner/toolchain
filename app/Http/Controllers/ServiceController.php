@@ -15,6 +15,7 @@ class ServiceController extends Controller
     private $oldSlug;
 
     public function __construct() {
+        $this->middleware('auth');
         $this->services = new Services();
     }
 
