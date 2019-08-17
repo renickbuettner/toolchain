@@ -6,7 +6,7 @@
 
     @include('partials/actions', ['actions' => ['print', 'edit', 'delete', 'ambience']])
 
-    <div class="container">
+    <div class="container service">
         <div class="row">
             <div class="col-12">
                 <h2>{{ $service->getTitle() }}</h2>
