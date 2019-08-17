@@ -49,8 +49,14 @@ npm run watch
 // Run all Mix tasks and minify output...
 npm run production
 
-// dont forget so setup the database
-php artisan migrate
-
 ````
  
+--- 
+ 
+### Bundles commands for starting the application
+```bash
+yarn && yarn run production
+composer install
+php artisan migrate
+php artisan serve
+```

@@ -2,12 +2,10 @@
 
 namespace Toolchain\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Queue\InvalidPayloadException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Toolchain\Service;
 use Toolchain\Services;
-use function GuzzleHttp\default_ca_bundle;
 
 class ServiceController extends Controller
 {
