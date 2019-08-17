@@ -6,6 +6,7 @@ export class ThemeManager {
         this._currentTheme = null;
         this._addTheme(new Theme('day', '', null));
         this._addTheme(new Theme('night', 'dark', null));
+        this._addTheme(new Theme('print', 'print', null));
 
         if (window._defaultTheme !== undefined || this._default()) {
             this.enable(this._default() || window._defaultTheme);
@@ -23,11 +24,13 @@ export class ThemeManager {
     /**
      * @param {String} slug
      */
-    enable(slug) {
+    enable(slug, _temponary) {
         try {
             this._body.className = this._themes[slug].className;
             this._currentTheme = slug;
-            this._default(slug);
+            if (!_temponary) {
+                this._default(slug);
+            }
         } catch (e) {
             console.error(e);
         }

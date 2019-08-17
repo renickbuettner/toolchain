@@ -75,21 +75,21 @@ class ServiceController extends Controller
                 $service->setIcon($payload->icon);
                 $service->setUrl($payload->url);
 
-                switch (strtolower(request()->method())) {
-                    case 'post':
-                        $body = $this->create($service->getSlug(), $service);
-                        break;
-                    case 'put':
-                        $body = $this->update($slug, $service);
-                        break;
-                    case 'delete':
-                        $body = $this->delete($slug);
-                        break;
-                }
-
             } catch (\Exception $e) {
                 throw new InvalidPayloadException($e);
             }
+        }
+
+        switch (strtolower(request()->method())) {
+            case 'post':
+                $body = $this->create($service->getSlug(), $service);
+                break;
+            case 'put':
+                $body = $this->update($slug, $service);
+                break;
+            case 'delete':
+                $body = $this->delete($slug);
+                break;
         }
 
         return response($body, 200)
