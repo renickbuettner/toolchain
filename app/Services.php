@@ -6,6 +6,7 @@ use Dotenv\Exception\InvalidFileException;
 use http\Exception\InvalidArgumentException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Services {
@@ -17,9 +18,7 @@ class Services {
     protected $categories = [];
 
     public function __construct() {
-        if ($this->services === null) {
-            $this->readFromDisk();
-        }
+        $this->readFromDisk();
     }
 
     public function getServices($category = null) {
@@ -56,13 +55,16 @@ class Services {
         }
     }
 
-    public function addService(Service $s, $writeToDisk = false) {
+    public function addService(Service $s, $writeToDisk = false): String {
         /**
          * prevent overwrites by slug with
          * checking and appending a string
-         * at the end of the slug
+         * at the end of the slug.
+         * But only for the first iteration
+         * then it just overwrites the
+         * second revision #edgecase.
          */
-        if (in_array($s->getSlug(), $this->getServices())) {
+        if (array_key_exists($s->getSlug(), $this->services)) {
             $s->setSlug($s->getSlug() . "-2");
         }
 
@@ -75,6 +77,8 @@ class Services {
         if (!in_array($s->getCategory(), $this->categories)) {
             $this->categories[] = $s->getCategory();
         }
+
+        return $s->getSlug();
     }
 
     public function getCategories() {
@@ -129,6 +133,10 @@ class Services {
     }
 
     protected function readFromDisk(): void {
+        if ($this->services === null) {
+            $this->services = [];
+        }
+
         try {
             foreach (Storage::disk('local')->files(self::SERVICE_PATH) as $file) {
                 try {

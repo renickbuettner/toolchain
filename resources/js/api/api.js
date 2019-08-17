@@ -14,6 +14,12 @@ export class ToolchainAPI {
         const path = (service.slug === '') ? '/service/create' : `/service/${service.slug}`;
         const method = (service.slug === '') ? 'post' : 'put';
 
+        // let the backend create a slug
+        // based on the title
+        if (method === 'put') {
+            service.slug = '';
+        }
+
         window.axios[method](path, service.getArray())
             .then(function (response) {
                 window.location.href = `/service/${response.data.slug}`;

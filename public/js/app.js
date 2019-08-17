@@ -30532,7 +30532,13 @@ function () {
       }
 
       var path = service.slug === '' ? '/service/create' : "/service/".concat(service.slug);
-      var method = service.slug === '' ? 'post' : 'put';
+      var method = service.slug === '' ? 'post' : 'put'; // let the backend create a slug
+      // based on the title
+
+      if (method === 'put') {
+        service.slug = '';
+      }
+
       window.axios[method](path, service.getArray()).then(function (response) {
         window.location.href = "/service/".concat(response.data.slug);
       })["catch"](function (error) {
