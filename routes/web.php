@@ -27,7 +27,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
 Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');
 
 Route::get('/editor/{slug}', 'EditorController@editor')->name('editor-slug');

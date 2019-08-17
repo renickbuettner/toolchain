@@ -7,6 +7,9 @@
     <h1>Editor</h1>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/ui/trumbowyg.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/trumbowyg.min.js" referrerpolicy="origin"></script>
 
     <div class="form-group row">
         <label for="title" class="col-3 col-form-label">Title</label>
@@ -54,10 +57,10 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="offset-3 col-9">
-            <button id="tceditorsubmit" class="btn btn-primary">Submit</button>
-            <button id="tceditorback" class="btn btn-secondary">Zurück</button>
-        </div>
+    <div class="offset-3 col-9">
+        <button id="tceditorsubmit" class="btn btn-primary">Submit</button>
+        <button id="tceditorback" class="btn btn-secondary">Zurück</button>
+    </div>
     </div>
 
 @endsection

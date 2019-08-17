@@ -1,4 +1,5 @@
 import {Service} from "../api/service";
+import {WysiwygEditor} from "./wysiwyg";
 
 export class ServiceEditor {
 
@@ -13,6 +14,7 @@ export class ServiceEditor {
 
         this._registerOnSave();
         this._registerOnBack();
+        this._registerWysiwygEditor();
 
         if (slug === null) {
             // init a fresh form
@@ -37,10 +39,12 @@ export class ServiceEditor {
         try {
             this._title.value = service.title;
             this._url.value = service.url;
-            this._description.value = service.description;
             this._category.value = service.category;
             this._slug = service.slug;
             this._icon = service.icon;
+            this._description.value = service.description;
+            this._description.value = service.description;
+            this._wysiwyg.setContent(service.description);
 
         } catch (e) {
             console.debug(e);
@@ -57,7 +61,7 @@ export class ServiceEditor {
         try {
             payload = {
                 title: this._title.value,
-                description: this._description.value,
+                description: this._wysiwyg.getContent(),
                 url: this._url.value,
                 slug: this._slug,
                 icon: this._icon,
@@ -81,11 +85,21 @@ export class ServiceEditor {
         }
     }
 
+    /**
+     * register event listener for back button
+     */
     _registerOnBack() {
         this._btnBack = document.getElementById('tceditorback');
         this._btnBack.onclick = (event) => {
             window.location.href = ServiceEditor.getPreviousRoute();
         };
+    }
+
+    /**
+     * register the description input as rich text editor
+     */
+    _registerWysiwygEditor() {
+        this._wysiwyg = new WysiwygEditor(this._description);
     }
 
     /**

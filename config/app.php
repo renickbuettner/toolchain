@@ -176,6 +176,9 @@ return [
         Toolchain\Providers\EventServiceProvider::class,
         Toolchain\Providers\RouteServiceProvider::class,
 
+        // Laravel IDE helper
+        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+
     ],
 
     /*

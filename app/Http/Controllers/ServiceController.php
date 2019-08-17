@@ -43,6 +43,8 @@ class ServiceController extends Controller
 
     public function api(String $slug) {
 
+        $body = null;
+
         if (app()->environment('production') && !request()->secure()) {
             throw new AccessDeniedHttpException('Request is not secured. Use https to access the api');
         }
@@ -54,33 +56,40 @@ class ServiceController extends Controller
 
             try {
                 $payload = json_decode(request()->getContent(), false);
-                $this->oldSlug = $payload->slug;
+
+                /**
+                 * Get the slug from the url parameter
+                 */
+                $this->oldSlug = $slug;
 
                 $service = new Service();
                 $service->setTitle($payload->title);
-                $service->setSlug($payload->title);
+
+                $service->setSlug($service->getTitle());
+                if ($payload->slug !== '') {
+                    $service->setSlug($payload->slug);
+                }
+
                 $service->setCategory($payload->category);
                 $service->setDescription($payload->description);
                 $service->setIcon($payload->icon);
                 $service->setUrl($payload->url);
 
+                switch (strtolower(request()->method())) {
+                    case 'post':
+                        $body = $this->create($service->getSlug(), $service);
+                        break;
+                    case 'put':
+                        $body = $this->update($slug, $service);
+                        break;
+                    case 'delete':
+                        $body = $this->delete($slug);
+                        break;
+                }
+
             } catch (\Exception $e) {
                 throw new InvalidPayloadException($e);
             }
-        }
-
-        $body = null;
-
-        switch (strtolower(request()->method())) {
-            case 'post':
-                $body = $this->create($service->getSlug(), $service);
-                break;
-            case 'put':
-                $body = $this->update($slug, $service);
-                break;
-            case 'delete':
-                $body = $this->delete($slug);
-                break;
         }
 
         return response($body, 200)
@@ -89,9 +98,10 @@ class ServiceController extends Controller
 
     protected function create(String $slug, Service $service) {
         try {
-            $this->services->addService($service, true);
 
-            return $service->toString();
+            $slug = $this->services->addService($service, true);
+
+            return $this->services->getService($slug)->toString();
 
         } catch (\Exception $e) {
             throw new InvalidPayloadException('Could not create service from payload');
@@ -101,9 +111,13 @@ class ServiceController extends Controller
     protected function update(String $slug, Service $service) {
 
         try {
-            $this->services->updateService($service, true);
-            $this->services->removeService($this->oldSlug);
+            if ($service->getSlug() !== $slug) {
+                $this->services->updateService($service, true);
+                $this->services->removeService($slug);
+                return $service->toString();
+            }
 
+            $this->services->updateService($service);
             return $service->toString();
 
         } catch (\Exception $e) {

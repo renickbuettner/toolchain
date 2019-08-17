@@ -5,27 +5,29 @@ export class WysiwygEditor {
             throw new Error('Invalid editor parent-element type. Must be a textarea');
         }
 
+        this._triggerClass = 'wysiwyg';
+
         this._parentElement = parentElement;
         this._renderEditor();
     }
 
-    get getContent() {
-        if (parentElement && parentElement.type !== 'textarea') {
-            this._parentElement.value()
+    getContent() {
+        if (this._parentElement && this._parentElement.type === 'textarea') {
+            return $(`#${this._parentElement.id}`).trumbowyg('html');
         } else {
             throw new Error('Editor parentElement is not initialized');
         }
     }
 
-    set setContent(html) {
-        if (parentElement && parentElement.type !== 'textarea') {
-            this._parentElement.innerHTML = html;
+    setContent(html) {
+        if (this._parentElement && this._parentElement.type === 'textarea') {
+            $(`#${this._parentElement.id}`).trumbowyg('html', html);
         } else {
             throw new Error('Editor parentElement is not initialized');
         }
     }
 
     _renderEditor() {
-        // to some fancy stuff
+        this._trumbowyg = $(`#${this._parentElement.id}`).trumbowyg();
     }
 }
