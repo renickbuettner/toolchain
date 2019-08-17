@@ -9,8 +9,8 @@ export class ServiceEditor {
         this._url = document.getElementById('tcurl');
         this._description = document.getElementById('tcdescription');
         this._category = document.getElementById('tccategory');
+        this._icon = document.getElementById('tcicon');
         this._slug = ''; // should be a string
-        this._icon = ''; // should be a string, too
 
         this._registerOnSave();
         this._registerOnBack();
@@ -41,7 +41,7 @@ export class ServiceEditor {
             this._url.value = service.url;
             this._category.value = service.category;
             this._slug = service.slug;
-            this._icon = service.icon;
+            this._icon.value = service.icon;
             this._description.value = service.description;
             this._description.value = service.description;
             this._wysiwyg.setContent(service.description);
@@ -63,9 +63,9 @@ export class ServiceEditor {
                 title: this._title.value,
                 description: this._wysiwyg.getContent(),
                 url: this._url.value,
-                slug: this._slug,
-                icon: this._icon,
-                category: this._category.value
+                icon: this._icon.value,
+                category: this._category.value,
+                slug: this._slug
             };
         } catch (e) {
             throw e;

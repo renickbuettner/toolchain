@@ -19,6 +19,10 @@ class Service {
     }
 
     public function setTitle(String $title) {
+        if (!preg_match_all('/^([A-Za-z0-9 ])+$/', $title)) {
+            throw new InvalidArgumentException('A service title can contain only these characters: A-Z, a-z, a space, 0-9');
+        }
+
         $this->title = $title;
         return $this;
     }
@@ -42,15 +46,7 @@ class Service {
     }
 
     public function getCategory(): String {
-        return $this->category;
-    }
-
-    public function getInternalUrl(): String {
-        return url("/service/{$this->getSlug()}");
-    }
-
-    public function getInternalEditorUrl(): String {
-        return url("/editor/{$this->getSlug()}");
+        return preg_replace('/[-]/', ' ',  $this->category);
     }
 
     /**
@@ -62,6 +58,12 @@ class Service {
      * @return string
      */
     public function setCategory(String $cat) {
+        $cat = preg_replace('/[ ]/', '-',  $cat);
+
+        if (!preg_match_all('/^([A-Za-z0-9\-_])+$/', $cat)) {
+            throw new InvalidArgumentException('A service category can contain only these characters: A-Z, a-z, 0-9, -, _, a space');
+        }
+
         $this->category = strtolower(
             explode(' ', $cat)[0]
         );
@@ -112,6 +114,14 @@ class Service {
 
         $this->slug = $slug;
         return $this;
+    }
+
+    public function getInternalUrl(): String {
+        return url("/service/{$this->getSlug()}");
+    }
+
+    public function getInternalEditorUrl(): String {
+        return url("/editor/{$this->getSlug()}");
     }
 
     public static function fromString(String $string): Service {

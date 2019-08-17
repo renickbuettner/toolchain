@@ -12,8 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/trumbowyg.min.js" referrerpolicy="origin"></script>
 
     <div class="form-group row">
-        <label for="title" class="col-3 col-form-label">Title</label>
-        <div class="col-9">
+        <label for="title" class="col-2 col-form-label">Title</label>
+        <div class="col-10">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -25,8 +25,8 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-3 col-form-label" for="url">URL</label>
-        <div class="col-9">
+        <label class="col-2 col-form-label" for="url">URL</label>
+        <div class="col-10">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -38,8 +38,8 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-3 col-form-label" for="url">Category</label>
-        <div class="col-9">
+        <label class="col-2 col-form-label" for="url">Category</label>
+        <div class="col-10">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -51,13 +51,26 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="description" class="col-3 col-form-label">Description</label>
-        <div class="col-9">
+        <label class="col-2 col-form-label" for="url">Icon</label>
+        <div class="col-10">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-image"></i>
+                    </div>
+                </div>
+                <input id="tcicon" name="icon" placeholder="An icon url (64x64)" type="text" class="form-control" required="required">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="description" class="col-2 col-form-label">Description</label>
+        <div class="col-10">
             <textarea id="tcdescription" name="description" placeholder="What does it?" cols="40" rows="12" class="form-control" required="required"></textarea>
         </div>
     </div>
     <div class="form-group row">
-    <div class="offset-3 col-9">
+    <div class="offset-2 col-10">
         <button id="tceditorsubmit" class="btn btn-primary">Submit</button>
         <button id="tceditorback" class="btn btn-secondary">Zurück</button>
     </div>
