@@ -15,6 +15,7 @@ export class ServiceEditor {
         this._registerOnSave();
         this._registerOnBack();
         this._registerWysiwygEditor();
+        this._registerValueValidation();
 
         if (slug === null) {
             // init a fresh form
@@ -101,6 +102,32 @@ export class ServiceEditor {
     _registerWysiwygEditor() {
         this._wysiwyg = new WysiwygEditor(this._description);
     }
+
+    _registerValueValidation() {
+        const validateTitle = (() => {
+            if (!this._title.value.match(/^([A-Za-z0-9 ])+$/)) {
+                this._title.classList.add('invalid');
+                return;
+            }
+
+            this._title.classList.remove('invalid');
+        }).bind(this);
+
+        const validateCategory = (() => {
+            if (!this._category.value.match(/^([A-Za-z0-9\-_])+$/)) {
+                this._category.classList.add('invalid');
+                return;
+            }
+
+            this._category.classList.remove('invalid');
+        }).bind(this);
+
+        this._title.onkeypress = validateTitle;
+        this._category.onkeypress = validateCategory;
+        this._title.onchange = validateTitle;
+        this._category.onchange = validateCategory;
+    }
+
 
     /**
      * editor should start when needed
