@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>@yield('title') | Toolchain</title>
     @if (isset($defaultTheme))
@@ -13,7 +14,7 @@
     @endif
 </head>
 <body>
-<!--
+
 @if (Route::has('login'))
 <div class="top-right links">
     @auth
@@ -26,7 +27,7 @@
     @endif
     @endauth
 </div>
-@endif-->
+@endif
 
 <section class="row m-0 ui">
     <div class="col-12 col-sm-12 col-md-12 col-lg-3 sidebar">

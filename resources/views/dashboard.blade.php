@@ -6,8 +6,6 @@
 
     @include('partials/actions', ['actions' => ['print', 'ambience']])
 
-    <h1>Dashboard</h1>
-
     @foreach ($services->getCategories() as $cat)
         <section class="category py-5">
             <h1 class="category-title">{{ucfirst($cat)}}</h1>
