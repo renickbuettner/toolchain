@@ -4,6 +4,9 @@
 
 <section class="service col-12 col-md-4" data-id="{{$service->getSlug()}}">
     <div class="card mb-4">
+        @if($service->getIcon() !== '')
+        <img src="{{$service->getIcon()}}" class="img-thumbnail">
+        @endif
         <div class="card-header">
             <h4 class="m-0">{{$service->getTitle()}}</h4>
         </div>

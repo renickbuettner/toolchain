@@ -143,7 +143,7 @@ class Services {
                     $service = Service::fromString(Storage::disk('local')->get($file));
 
                 } catch (\Exception $e) {
-                    throw new InvalidFileException('The service ('.$file.') could not be loaded.');
+                    throw new InvalidFileException('The service ('.$file.') could not be loaded. '.$e->getMessage());
                 }
 
                 $this->addService($service);
