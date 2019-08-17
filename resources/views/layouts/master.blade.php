@@ -6,6 +6,11 @@
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>@yield('title') | Toolchain</title>
+    @if (isset($defaultTheme))
+        <script>
+            window._defaultTheme = '{{$defaultTheme}}';
+        </script>`;
+    @endif
 </head>
 <body>
 <!--

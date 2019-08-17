@@ -7,6 +7,7 @@ import {ServiceEditor} from "./editor/serviceEditor";
 import {ToolchainAPI} from "./api/api";
 import {ActionsToolbar} from "./generals/actions";
 import {i18n} from "./generals/i18n";
+import {ThemeManager} from "./generals/themes";
 
 require('./bootstrap');
 
@@ -21,6 +22,7 @@ window.tc = {
 // add dependencies
 window.tc.api = new ToolchainAPI();
 window.tc.i18n = new i18n();
+window.tc.theme = new ThemeManager();
 window.tc.actions = new ActionsToolbar();
 
 // initiate editor if needed
