@@ -5,7 +5,10 @@ export class i18n {
             'dialog.cancel': 'Cancel',
             'dialog.confirm': 'Confirm',
             'actions.delete.info': 'Do you really want to delete this?',
-            'actions.delete.item': 'Delete item'
+            'actions.delete.item': 'Delete item',
+            'editor.invalid.title': 'Invalid content',
+            'editor.invalid.hide': 'Hide',
+            'editor.invalid.info': 'The form contains invalid input. The areas are highlighted. A title can contain words with spaces. A category can contain out of words and <em>_-</em>.'
         };
     }
 

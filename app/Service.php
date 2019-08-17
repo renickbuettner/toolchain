@@ -2,9 +2,6 @@
 
 namespace Toolchain;
 
-use http\Exception\InvalidArgumentException;
-use Illuminate\Queue\InvalidPayloadException;
-
 class Service {
 
     protected $title;
@@ -20,7 +17,7 @@ class Service {
 
     public function setTitle(String $title) {
         if (!preg_match_all('/^([A-Za-z0-9 ])+$/', $title)) {
-            throw new InvalidArgumentException('A service title can contain only these characters: A-Z, a-z, a space, 0-9');
+            throw new \Exception('A service title can contain only these characters: A-Z, a-z, a space, 0-9');
         }
 
         $this->title = $title;
@@ -61,7 +58,7 @@ class Service {
         $cat = preg_replace('/[ ]/', '-',  $cat);
 
         if (!preg_match_all('/^([A-Za-z0-9\-_])+$/', $cat)) {
-            throw new InvalidArgumentException('A service category can contain only these characters: A-Z, a-z, 0-9, -, _, a space');
+            throw new \Exception('A service category can contain only these characters: A-Z, a-z, 0-9, -, _, a space');
         }
 
         $this->category = strtolower(

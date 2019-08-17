@@ -1,9 +1,11 @@
 import {Service} from "../api/service";
 import {WysiwygEditor} from "./wysiwyg";
+import {Dialog} from "../generals/dialog";
 
 export class ServiceEditor {
 
     constructor(slug) {
+        this._i18n = window.tc.i18n.getString;
         this._api = window.tc.api;
         this._title = document.getElementById('tctitle');
         this._url = document.getElementById('tcurl');
@@ -80,10 +82,26 @@ export class ServiceEditor {
      */
     _registerOnSave() {
         this._btnSubmit = document.getElementById('tceditorsubmit');
-        this._btnSubmit.onclick = (event) => {
+        this._btnSubmit.onclick = ((event) => {
+            if (!this._hasValidInput()) {
+                const params = {
+                    title: this._i18n('editor.invalid.title'),
+                    content: this._i18n('editor.invalid.info'),
+                    actions: [
+                        {title: this._i18n('editor.invalid.hide'), attrs: null, className: 'btn-default abort'}
+                    ],
+                    _class: 'confirmation-dialog delete'
+                };
+
+                this._dialog = new Dialog(params);
+                this._dialog.show();
+
+                return;
+            }
+
             const service = this._getFormData();
             this._api.putService(service);
-        }
+        }).bind(this);
     }
 
     /**
@@ -126,6 +144,10 @@ export class ServiceEditor {
         this._category.onkeypress = validateCategory;
         this._title.onchange = validateTitle;
         this._category.onchange = validateCategory;
+    }
+
+    _hasValidInput() {
+        return (!this._category.classList.contains('invalid') && !this._title.classList.contains('invalid'));
     }
 
 
