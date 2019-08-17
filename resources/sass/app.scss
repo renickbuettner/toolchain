@@ -1,23 +1,26 @@
-// Fonts
+// fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
+// variables
 @import 'variables';
 
-// Bootstrap
+// bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Global styles
+// global styles
 @import 'global';
 
-// Add views
+// add views
 @import 'v-dashboard';
 
-// Add actions - alias toolbar
+// add actions - alias toolbar
 @import 'actions';
 
-// Import service styling
+// add service styling
 @import 'service';
 
-// Import dark-mode theme
-@import "themes/dark";
+// add dark-mode theme
+@import 'themes/dark';
+
+// Add print mode
+@import 'themes/print';

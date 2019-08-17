@@ -1,0 +1,57 @@
+@mixin printLayout() {
+    background: none;
+    overflow: visible;
+
+    .ui .sidebar {
+        display: none;
+    }
+
+    .ui .content-area {
+        width: 100vw;
+        margin: 0;
+        padding: 2.5rem;
+        overflow: visible;
+    }
+
+    .action:not(.print) {
+        display: none;
+    }
+
+    a.btn {
+        display: none;
+    }
+
+    .row {
+        display: block !important;
+        flex-wrap: nowrap !important;
+    }
+}
+
+body.print {
+    @include printLayout();
+}
+
+@media print {
+    @page {size: A4 landscape; }
+
+    body {
+        @include printLayout();
+    }
+    .action.print {
+        display: none;
+    }
+
+    body, h1, h2, h3, ol, ul, div {
+        width: auto;
+        border: 0;
+        margin: 0 5%;
+        padding: 0;
+        float: none;
+        position: static !important;
+        flex: none !important;
+        overflow: visible;
+        display: block;
+        flex-wrap: nowrap !important;
+        box-sizing: unset !important;
+    }
+}

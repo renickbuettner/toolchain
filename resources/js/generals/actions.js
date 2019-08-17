@@ -30,6 +30,7 @@ export class ActionsToolbar {
         this._addActionDelete();
         this._addActionEdit();
         this._addActionDayNightSwitch();
+        this._addActionPrint();
     }
 
     /**
@@ -98,6 +99,18 @@ export class ActionsToolbar {
                 return;
             }
             theme.enable('day');
+        }
+    }
+
+    _addActionPrint() {
+        let btn = this._actions.getElementsByClassName('print')[0];
+        if (btn === undefined) {
+            return;
+        }
+
+        btn.onclick = () => {
+            const theme = window.tc.theme;
+            theme.enable('print', true);
         }
     }
 
