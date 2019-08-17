@@ -24,7 +24,7 @@ class ServiceController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function dashboard() {
-        return view('dashboard', ["services" => $this->services]);
+        return view('dashboard', ['services' => $this->services, 'defaultTheme' => null]);
     }
 
     /**
@@ -38,7 +38,7 @@ class ServiceController extends Controller
             return $this->services->getService($slug)->toString();
         }
 
-        return view('service', ["service" => $this->services->getService($slug)]);
+        return view('service', ['service' => $this->services->getService($slug)]);
     }
 
     public function api(String $slug) {

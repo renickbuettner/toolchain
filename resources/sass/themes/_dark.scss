@@ -1,0 +1,39 @@
+body.dark {
+
+    $bgColor: #1b1e21;
+    $borderColor: dimgrey;
+
+    background-color: $bgColor;
+    h1, h2, h3, h4, h5, h6, p, div {
+        color: white;
+    }
+
+    .ui .sidebar {
+        background-color: darken(#3083c9, 30%);
+
+        .ui-group {
+            .ui-btn {
+                &:hover, &.active {
+                    background-color: darken($colorLight, 30%);
+                }
+            }
+        }
+    }
+
+    .card {
+        background-color: $bgColor;
+        border-color: $borderColor;
+        &> div {
+            border-color: $borderColor;
+        }
+    }
+
+    .action {
+        filter: invert(1);
+    }
+
+    .img-thumbnail {
+        background-color: $bgColor;
+        border-color: $borderColor;
+    }
+}

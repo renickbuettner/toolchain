@@ -29,6 +29,7 @@ export class ActionsToolbar {
         // add icons if enabled
         this._addActionDelete();
         this._addActionEdit();
+        this._addActionDayNightSwitch();
     }
 
     /**
@@ -81,6 +82,23 @@ export class ActionsToolbar {
         }).bind(this);
 
         this._btns.delete = btn;
+    }
+
+    _addActionDayNightSwitch() {
+        let btn = this._actions.getElementsByClassName('ambience')[0];
+        if (btn === undefined) {
+            return;
+        }
+
+        btn.onclick = () => {
+            const theme = window.tc.theme;
+            const current = theme.current();
+            if (current === null || current === 'day') {
+                theme.enable('night');
+                return;
+            }
+            theme.enable('day');
+        }
     }
 
 }
