@@ -9,16 +9,11 @@
     <div class="container service">
         <div class="row">
             <div class="col-6">
-                <h2><strong>{{ $service->getTitle() }}</strong></h2>
-                <h4><strong>{{ $service->getCategory() }}</strong></h4>
-
+                <h2 class="service-title"><strong>{{ $service->getTitle() }}</strong></h2>
+                <h4 class="service-category"><strong>{{ $service->getCategory() }}</strong></h4>
             </div>
             <div class="col-6">
                 <img src="{{ $service->getIcon() }}" class="img-thumbnail">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
             </div>
         </div>
         <div class="row">
