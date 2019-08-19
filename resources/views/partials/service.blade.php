@@ -12,7 +12,7 @@
         </div>
         <div class="card-body card-style">
             <div class="description-text">
-                <span>{{$service->getDescription()}}</span>
+                <span>{!! $service->getDescription() !!}</span>
             </div>
             <a href="{{$service->getInternalUrl()}}" class="btn btn-secondary">View details</a>
             <a href="{{$service->getUrl()}}" class="btn btn-primary" target="_blank">Open</a>

@@ -17,7 +17,7 @@
                 <h4>{{ $service->getCategory() }}</h4>
             </div>
         </div>
-            <!-- <img src="{{ $service->getIcon() }}" class="img-thumbnail"> -->
+            <img src="{{ $service->getIcon() }}" class="img-thumbnail">
         <div class="row">
             <div class="description">
                 <div class="col-8">
