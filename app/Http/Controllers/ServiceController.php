@@ -63,14 +63,15 @@ class ServiceController extends Controller
 
                 $service = new Service();
                 $service->setTitle($payload->title);
-
                 $service->setSlug($service->getTitle());
+
                 if ($payload->slug !== '') {
                     $service->setSlug($payload->slug);
                 }
 
                 $service->setCategory($payload->category);
                 $service->setDescription($payload->description);
+                $service->setShortDescription($payload->shortdescription);
                 $service->setIcon($payload->icon);
                 $service->setUrl($payload->url);
 

@@ -8,6 +8,7 @@ class Service {
     protected $slug;
     protected $url;
     protected $description;
+    protected $shortdescription;
     protected $icon;
     protected $category;
 
@@ -39,6 +40,15 @@ class Service {
 
     public function setDescription(String $desc) {
         $this->description = $desc;
+        return $this;
+    }
+
+    public function getShortDescription(): String {
+        return $this->shortdescription;
+    }
+
+    public function setShortDescription(String $shortdesc) {
+        $this->shortdescription = $shortdesc;
         return $this;
     }
 
@@ -130,6 +140,7 @@ class Service {
             return $s->setUrl($obj->url)
                 ->setTitle($obj->title)
                 ->setDescription($obj->description)
+                ->setShortDescription($obj->shortdescription)
                 ->setIcon($obj->icon)
                 ->setCategory($obj->category)
                 ->setSlug($obj->slug);
@@ -143,6 +154,7 @@ class Service {
         return json_encode([
             "title" => $this->title,
             "description" => $this->description,
+            "shortdescriptio" => $this->shortdescription,
             "url" => $this->url,
             "slug" => $this->slug,
             "icon" => $this->icon,

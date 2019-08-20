@@ -10,6 +10,7 @@ export class ServiceEditor {
         this._title = document.getElementById('tctitle');
         this._url = document.getElementById('tcurl');
         this._description = document.getElementById('tcdescription');
+        this._shortdescription = document.getElementById('tcshortdescription');
         this._category = document.getElementById('tccategory');
         this._icon = document.getElementById('tcicon');
         this._slug = ''; // should be a string
@@ -47,6 +48,7 @@ export class ServiceEditor {
             this._icon.value = service.icon;
             this._description.value = service.description;
             this._description.value = service.description;
+            this._shortdescription.value = service.shortdescription;
             this._wysiwyg.setContent(service.description);
 
         } catch (e) {
@@ -65,6 +67,7 @@ export class ServiceEditor {
             payload = {
                 title: this._title.value,
                 description: this._wysiwyg.getContent(),
+                shortdescription: this._shortdescription.value,
                 url: this._url.value,
                 icon: this._icon.value,
                 category: this._category.value,
@@ -119,6 +122,7 @@ export class ServiceEditor {
      */
     _registerWysiwygEditor() {
         this._wysiwyg = new WysiwygEditor(this._description);
+        this.wysiwyg = new WysiwygEditor(this._shortdescription);
     }
 
     _registerValueValidation() {
