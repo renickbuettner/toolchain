@@ -17,15 +17,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="shortdescription">
                 <div class="col-8">
+                    <div class="shortdescription">
                     {!! $service->getShortDescription() !!}
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="description">
-                <div class="col-8">
+            <div class="col-8">
+                <div class="description">
                     {!! $service->getDescription() !!}
                 </div>
             </div>
