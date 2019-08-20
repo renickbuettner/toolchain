@@ -154,7 +154,7 @@ class Service {
         return json_encode([
             "title" => $this->title,
             "description" => $this->description,
-            "shortdescriptio" => $this->shortdescription,
+            "shortdescription" => $this->shortdescription,
             "url" => $this->url,
             "slug" => $this->slug,
             "icon" => $this->icon,

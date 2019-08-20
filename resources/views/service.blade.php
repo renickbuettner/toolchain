@@ -17,6 +17,13 @@
             </div>
         </div>
         <div class="row">
+            <div class="shortdescription">
+                <div class="col-8">
+                    {!! $service->getShortDescription() !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="description">
                 <div class="col-8">
                     {!! $service->getDescription() !!}
