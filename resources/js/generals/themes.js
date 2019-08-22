@@ -43,7 +43,7 @@ export class ThemeManager {
     }
 
     current() {
-        return this._currentTheme;
+        return this._currentTheme || null;
     }
 
     _default(_default) {
