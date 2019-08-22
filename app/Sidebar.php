@@ -12,7 +12,11 @@ class Sidebar {
 
     public function __construct() {
         $this->items[] = new SidebarNavigationItem('sidebar.service.all', '/dashboard', '/assets/icon-service.svg');
-        $this->items[] = new SidebarNavigationItem('sidebar.service.add', '/editor', '/assets/icon-add-service.svg');
+
+        if (auth()->user()->hasPermission('manage')) {
+            $this->items[] = new SidebarNavigationItem('sidebar.service.add', '/editor', '/assets/icon-add-service.svg');
+        }
+
         $this->items[] = new SidebarNavigationItem('sidebar.help.center', '/help', '/assets/icon-help.svg');
     }
 

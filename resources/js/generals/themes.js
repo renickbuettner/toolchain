@@ -26,7 +26,7 @@ export class ThemeManager {
      */
     enable(slug, _temponary) {
         try {
-            this._body.className = this._themes[slug].className;
+            this._body.className = this._themes[slug] && this._themes[slug].className || '';
             this._currentTheme = slug;
             if (!_temponary) {
                 this._default(slug);
