@@ -42,10 +42,11 @@ $secondary: black;
 
     #login {
         font-size: 14px;
-        position: absolute;
-        left: auto;
-        right: auto;
-        margin: 0 auto;
+        position:absolute;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
         bottom: 2.5rem;
         padding: 1.25rem 4rem;
         border-radius: 5px;
