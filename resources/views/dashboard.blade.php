@@ -6,6 +6,8 @@
 
     @include('partials/actions', ['actions' => ['print', 'ambience']])
 
+    <h5 class="text-secondary">Welcome back, {{ auth()->user()->getFullName() }}.</h5>
+
     @foreach ($services->getCategories() as $cat)
         <section class="category py-5">
             <h1 class="category-title">{{ucfirst($cat)}}</h1>

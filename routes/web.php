@@ -11,32 +11,43 @@
 |
 */
 
+// props
 App::setLocale('en');
-
 Route::pattern('slug', '[a-z-0-9]+');
 
-
+// welcome page
 Route::get('/', function () {
     return view('welcome');
 });
 
+// single sign on
+Auth::routes();
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('/redirect/{service}', 'SocialAuthController@redirect');
 Route::get('/callback/{service}', 'SocialAuthController@callback');
 
-Auth::routes();
-
+// fallback home from laravel
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');
+// protected routes
+Route::middleware(['web', 'auth'])->group(function () {
 
-Route::get('/editor/{slug}', 'EditorController@editor')->name('editor-slug');
-Route::get('/editor', 'EditorController@editor')->name('editor');
+    Route::get('/logout', function () {
+       auth()->logout();
+       return redirect()->to('/');
+    });
 
-Route::match(['put', 'post', 'delete'], '/service/{slug}', 'ServiceController@api')->name('api.service');
-Route::get('/service/{slug}', 'ServiceController@service')->name('service');
+    Route::get('/dashboard', 'ServiceController@dashboard')->name('dashboard');
 
-Auth::routes();
+    Route::get('/help', 'HelpController@helpcenter')->name('help-center');
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/editor/{slug}', 'EditorController@editor')->name('editor-slug');
+
+    Route::get('/editor', 'EditorController@editor')->name('editor');
+
+    Route::match(['put', 'post', 'delete'], '/service/{slug}', 'ServiceController@api')->name('api.service');
+
+    Route::get('/service/{slug}', 'ServiceController@service')->name('service');
+
+});

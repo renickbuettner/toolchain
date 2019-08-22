@@ -4,7 +4,18 @@
 
 @section('body')
 
-    @include('partials/actions', ['actions' => ['print', 'edit', 'delete', 'ambience']])
+    @php
+        $actions = ['print'];
+
+        if (auth()->user()->hasPermission('manage')) {
+            $actions[] = 'edit';
+            $actions[] = 'delete';
+        }
+
+        $actions[] = 'ambience';
+    @endphp
+
+    @include('partials/actions', ['actions' => $actions])
 
     <div class="container service">
         <div class="row">
