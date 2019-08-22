@@ -48,7 +48,10 @@ class Service {
     }
 
     public function setShortDescription(String $shortdesc) {
-        $this->shortdescription = $shortdesc;
+
+        $validShortDesc = strip_tags($shortdesc);
+
+        $this->shortdescription = $validShortDesc;
         return $this;
     }
 
