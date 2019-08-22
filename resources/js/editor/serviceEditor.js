@@ -143,10 +143,28 @@ export class ServiceEditor {
             this._category.classList.remove('invalid');
         }).bind(this);
 
+        const validateShortDescription = (() => {
+
+            if (!this._shortdescription.value.match(/^[A-Za-z0-9\-_]+/)) {
+                this._shortdescription.classList.add('invalid');
+                return;
+            }
+
+            if(this._shortdescription.value.length > 100){
+                this._shortdescription.classList.add('invalid');
+                alert('text ist zu Lang');
+                return;
+            }
+
+            this._shortdescription.classList.remove('invalid');
+        });
+
         this._title.onkeypress = validateTitle;
         this._category.onkeypress = validateCategory;
+        this._shortdescription.onkeypress = validateShortDescription;
         this._title.onchange = validateTitle;
         this._category.onchange = validateCategory;
+        this._shortdescription.onchange = validateShortDescription;
     }
 
     _hasValidInput() {
