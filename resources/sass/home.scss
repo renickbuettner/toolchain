@@ -9,7 +9,7 @@ $secondary: black;
 
     .wrapper {
         animation: sliding-background 40s linear infinite;
-        background: url("https://images.unsplash.com/photo-1452697620382-f6543ead73b5") no-repeat left / 120%;
+        background: url("https://images.unsplash.com/photo-1443694910004-3567042689f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1494&q=50") no-repeat left / 120%;
         height: 100vh;
         text-align: center;
         width: 100vw;
@@ -37,6 +37,24 @@ $secondary: black;
             margin-left: -1%;
             margin-top: -1%;
             position: absolute;
+        }
+    }
+
+    #login {
+        font-size: 14px;
+        position: absolute;
+        left: auto;
+        right: auto;
+        margin: 0 auto;
+        bottom: 2.5rem;
+        padding: 1.25rem 4rem;
+        border-radius: 5px;
+        background-color: #e3e9ee;
+        border: 1px solid #e3e9ee;
+        transition: ease-in-out border 300ms;
+
+        &:hover {
+            border: 1px solid #9da0a4;
         }
     }
 
