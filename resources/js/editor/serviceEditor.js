@@ -152,12 +152,12 @@ export class ServiceEditor {
 
             if(this._shortdescription.value.length > 100){
                 this._shortdescription.classList.add('invalid');
-                alert('text ist zu Lang');
+                alert('Der Text darf nicht länger als 100 Zeichen sein');
                 return;
             }
 
             this._shortdescription.classList.remove('invalid');
-        });
+        }).bind(this);
 
         this._title.onkeypress = validateTitle;
         this._category.onkeypress = validateCategory;
