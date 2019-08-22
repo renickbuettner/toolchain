@@ -22,9 +22,6 @@ GNU / Linux Distributions: $HOME/.config/composer/vendor/bin
 Windows: %USERPROFILE%\AppData\Roaming\Composer\vendor\bin
 ```
 
-### .env 
-- der Pfad zur DB ist aktuell noch absolut und muss individuell angepast werden
-
 ### Ngix configuration
 ```
 location / {
