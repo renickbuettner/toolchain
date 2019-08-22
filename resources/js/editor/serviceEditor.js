@@ -49,7 +49,6 @@ export class ServiceEditor {
             this._description.value = service.description;
             this._description.value = service.description;
             this._shortdescription.value = service.shortdescription;
-            this._wysiwyg2.setContent(service.shortdescription);
             this._wysiwyg.setContent(service.description);
 
         } catch (e) {
@@ -123,7 +122,6 @@ export class ServiceEditor {
      */
     _registerWysiwygEditor() {
         this._wysiwyg = new WysiwygEditor(this._description);
-        this._wysiwyg2 = new WysiwygEditor(this._shortdescription);
     }
 
     _registerValueValidation() {
