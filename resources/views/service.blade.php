@@ -19,9 +19,15 @@
 
     <div class="container service">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <h2>{{ $service->getTitle() }}</h2>
             </div>
+            <div class="col-6">
+                    @if($service->getIcon() !== '')
+                        <img src="{{$service->getIcon()}}" class="img-thumbnail">
+                    @endif
+            </div>
+
         </div>
         <div class="row">
                 <div class="col-8">
