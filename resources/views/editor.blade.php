@@ -59,7 +59,7 @@
                         <i class="fa fa-image"></i>
                     </div>
                 </div>
-                <input id="tcicon" name="icon" placeholder="An icon url (64x64)" type="text" class="form-control" required="required">
+                <input id="tcicon" name="icon" placeholder="An icon url (64x64)" type="text" class="form-control">
             </div>
         </div>
     </div>

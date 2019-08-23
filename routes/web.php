@@ -18,7 +18,7 @@ Route::pattern('slug', '[a-z-0-9]+');
 // welcome page
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // single sign on
 Auth::routes();
