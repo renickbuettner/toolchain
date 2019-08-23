@@ -71,3 +71,9 @@ npm run watch
 npm run production
 
 ````
+
+### Tests
+To execute the test run:
+````bash
+// Run the tests
+./vendor/bin/phpunit
