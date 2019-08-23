@@ -4,16 +4,23 @@
 
 @section('body')
 
-    @include('partials/actions', ['actions' => ['print', 'edit', 'delete', 'ambience']])
+    @php
+        $actions = ['print'];
+
+        if (auth()->user()->hasPermission('manage')) {
+            $actions[] = 'edit';
+            $actions[] = 'delete';
+        }
+
+        $actions[] = 'ambience';
+    @endphp
+
+    @include('partials/actions', ['actions' => $actions])
 
     <div class="container service">
         <div class="row">
-            <div class="col-6">
-                <h2 class="service-title"><strong>{{ $service->getTitle() }}</strong></h2>
-                <h4 class="service-category"><strong>{{ $service->getCategory() }}</strong></h4>
-            </div>
-            <div class="col-6">
-                <img src="{{ $service->getIcon() }}" class="img-thumbnail">
+            <div class="col-12">
+                <h2>{{ $service->getTitle() }}</h2>
             </div>
         </div>
         <div class="row">
@@ -28,11 +35,6 @@
                 <div class="description">
                     {!! $service->getDescription() !!}
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <a class="btn btn-lg btn-primary" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
             </div>
         </div>
     </div>

@@ -20,11 +20,20 @@
                     color: $colorPrimary;
                     background-color: $colorLight;
                     text-decoration: none;
+
+                    .sidebar-icon > img {
+                        filter: invert(0);
+                    }
                 }
                 &.active {
                     -webkit-box-shadow: inset 0px 0px 5px 3px rgba(163,163,163,1);
                     -moz-box-shadow: inset 0px 0px 5px 3px rgba(163,163,163,1);
                     box-shadow: inset 0px 0px 5px 3px rgba(163,163,163,1);
+                }
+
+                .sidebar-icon > img {
+                    filter: invert(1);
+                    transition: ease-in-out all 300ms;
                 }
             }
         }

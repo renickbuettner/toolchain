@@ -11,6 +11,30 @@
 - JSON PHP Extension
 - BCMath PHP Extension
 
+--- 
+ 
+### Bundles commands for starting the application
+```bash
+yarn && yarn run production
+composer install
+php artisan migrate
+php artisan serve
+```
+
+For running toolchain, you need an OAuth private and public token from Google. 
+In the developer console of Google, you can create your own project. Then you
+can setup an token for single-sign on. Just add this token to your environment 
+config. 
+
+The database file is located as a sqlite file in the storage folder. After setting 
+up a token for single-sign on, you have to add email addresses on a whitelist.
+After a initial launch of the application, there'll be a whitelist.json in the storage
+folder. Please add all addresses for users which should read or manage the services.
+Manage does mean, that a user can create and remove services. Viewing allow to user 
+to sign-in into your instance.
+
+---
+
 ### Composer configuration
 ````bash
 composer global require laravel/installer
@@ -21,9 +45,6 @@ macOS: $HOME/.composer/vendor/bin
 GNU / Linux Distributions: $HOME/.config/composer/vendor/bin
 Windows: %USERPROFILE%\AppData\Roaming\Composer\vendor\bin
 ```
-
-### .env 
-- der Pfad zur DB ist aktuell noch absolut und muss individuell angepast werden
 
 ### Ngix configuration
 ```
@@ -50,13 +71,3 @@ npm run watch
 npm run production
 
 ````
- 
---- 
- 
-### Bundles commands for starting the application
-```bash
-yarn && yarn run production
-composer install
-php artisan migrate
-php artisan serve
-```

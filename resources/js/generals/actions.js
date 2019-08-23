@@ -110,8 +110,16 @@ export class ActionsToolbar {
 
         btn.onclick = () => {
             const theme = window.tc.theme;
-            theme.enable('print', true);
+            const _name = 'print';
+
+            if (!document.body.classList.contains(_name)) {
+                theme.enable(_name, true);
+                return;
+            }
+
+            theme.disable();
         }
+
     }
 
 }

@@ -3,6 +3,7 @@
 namespace Toolchain\Http\Controllers;
 
 use Illuminate\Queue\InvalidPayloadException;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Toolchain\Service;
 use Toolchain\Services;
@@ -11,9 +12,18 @@ class ServiceController extends Controller
 {
     private $services;
     private $oldSlug;
+    private $user;
 
     public function __construct() {
         $this->middleware('auth');
+
+        $this->middleware(function ($request, $next) {
+
+            $this->user = Auth::user();
+
+            return $next($request);
+        });
+
         $this->services = new Services();
     }
 
@@ -23,7 +33,11 @@ class ServiceController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function dashboard() {
-        return view('dashboard', ['services' => $this->services, 'defaultTheme' => null]);
+        if (!$this->user->hasPermission('view')) {
+            return redirect()->to('/');
+        }
+
+        return view('dashboard', ['services' => $this->services, 'defaultTheme' => null, 'user' => $this->user]);
     }
 
     /**
@@ -33,6 +47,10 @@ class ServiceController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function service(String $slug) {
+        if (!$this->user->hasPermission('view')) {
+            return redirect()->to('/');
+        }
+
         if (request()->wantsJson()) {
             return $this->services->getService($slug)->toString();
         }
@@ -41,6 +59,9 @@ class ServiceController extends Controller
     }
 
     public function api(String $slug) {
+        if (!$this->user->hasPermission('manage')) {
+            return redirect()->to('/');
+        }
 
         $body = null;
 
@@ -127,5 +148,11 @@ class ServiceController extends Controller
 
     protected function delete(String $slug) {
         $this->services->removeService($slug);
+    }
+
+    protected function getCurrentUser() {
+        return [
+          "attributes" => $this->user->attributes
+        ];
     }
 }

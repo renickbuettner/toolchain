@@ -126,7 +126,7 @@ export class ServiceEditor {
 
     _registerValueValidation() {
         const validateTitle = (() => {
-            if (!this._title.value.match(/^([A-Za-z0-9 ])+$/)) {
+            if (!this._title.value.match(/^([A-Za-z0-9 ])+$/) && this._category.value.length > 1 && this._category.value.length < 100) {
                 this._title.classList.add('invalid');
                 return;
             }
@@ -135,7 +135,7 @@ export class ServiceEditor {
         }).bind(this);
 
         const validateCategory = (() => {
-            if (!this._category.value.match(/^([A-Za-z0-9\-_])+$/)) {
+            if (!this._category.value.match(/^([A-Za-z0-9\-_])+$/) && this._category.value.length > 1 && this._category.value.length < 30) {
                 this._category.classList.add('invalid');
                 return;
             }
