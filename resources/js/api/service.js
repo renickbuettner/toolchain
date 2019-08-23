@@ -1,11 +1,12 @@
 export class Service {
-    constructor({title, description, url, slug, icon, category}) {
+    constructor({title, description, shortdescription, url, slug, icon, category}) {
         this._title = title;
         this._description = description;
         this._url = url;
         this._slug = slug;
         this._icon = icon;
         this._category = category;
+        this._shortdescription = shortdescription;
     }
 
     get title() {
@@ -32,6 +33,10 @@ export class Service {
         return this._category;
     }
 
+    get shortdescription() {
+        return this._shortdescription;
+    }
+
     set title(value) {
         this._title = value;
     }
@@ -56,14 +61,19 @@ export class Service {
         this._category = value;
     }
 
+    set shortdescription(value) {
+        this._shortdescription = value;
+    }
+
     getArray() {
         return {
             'title': this.title,
             'description': this.description,
+            'shortdescription': this.shortdescription,
             'url': this.url,
             'slug': this.slug,
             'icon': this.icon,
-            'category': this.category
+            'category': this.category,
         };
     }
 

@@ -10,6 +10,7 @@ export class ServiceEditor {
         this._title = document.getElementById('tctitle');
         this._url = document.getElementById('tcurl');
         this._description = document.getElementById('tcdescription');
+        this._shortdescription = document.getElementById('tcshortdescription');
         this._category = document.getElementById('tccategory');
         this._icon = document.getElementById('tcicon');
         this._slug = ''; // should be a string
@@ -47,6 +48,7 @@ export class ServiceEditor {
             this._icon.value = service.icon;
             this._description.value = service.description;
             this._description.value = service.description;
+            this._shortdescription.value = service.shortdescription;
             this._wysiwyg.setContent(service.description);
 
         } catch (e) {
@@ -65,6 +67,7 @@ export class ServiceEditor {
             payload = {
                 title: this._title.value,
                 description: this._wysiwyg.getContent(),
+                shortdescription: this._shortdescription.value,
                 url: this._url.value,
                 icon: this._icon.value,
                 category: this._category.value,
@@ -140,10 +143,28 @@ export class ServiceEditor {
             this._category.classList.remove('invalid');
         }).bind(this);
 
+        const validateShortDescription = (() => {
+
+            if (!this._shortdescription.value.match(/^[A-Za-z0-9\-_]+/)) {
+                this._shortdescription.classList.add('invalid');
+                return;
+            }
+
+            if(this._shortdescription.value.length > 200){
+                this._shortdescription.classList.add('invalid');
+                alert('Der Text darf nicht länger als 100 Zeichen sein');
+                return;
+            }
+
+            this._shortdescription.classList.remove('invalid');
+        }).bind(this);
+
         this._title.onkeypress = validateTitle;
         this._category.onkeypress = validateCategory;
+        this._shortdescription.onkeypress = validateShortDescription;
         this._title.onchange = validateTitle;
         this._category.onchange = validateCategory;
+        this._shortdescription.onchange = validateShortDescription;
     }
 
     _hasValidInput() {
