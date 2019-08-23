@@ -59,8 +59,14 @@
                         <i class="fa fa-image"></i>
                     </div>
                 </div>
-                <input id="tcicon" name="icon" placeholder="An icon url (64x64)" type="text" class="form-control" required="required">
+                <input id="tcicon" name="icon" placeholder="An icon url (64x64)" type="text" class="form-control">
             </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="short-description" class="col-2 col-form-label">Simplified description</label>
+        <div class="col-10">
+            <textarea id="tcshortdescription" name="shortdescription" placeholder="What does it?" cols="40" rows="4" class="form-control" required="required"></textarea>
         </div>
     </div>
     <div class="form-group row">

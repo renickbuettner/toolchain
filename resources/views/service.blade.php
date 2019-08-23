@@ -19,26 +19,28 @@
 
     <div class="container service">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <h2>{{ $service->getTitle() }}</h2>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h4>{{ $service->getCategory() }}</h4>
+            <div class="col-6">
+                    @if($service->getIcon() !== '')
+                        <img src="{{$service->getIcon()}}" class="img-thumbnail">
+                    @endif
             </div>
+
         </div>
-            <!-- <img src="{{ $service->getIcon() }}" class="img-thumbnail"> -->
         <div class="row">
-            <div class="description">
                 <div class="col-8">
-                    {!! $service->getDescription() !!}
+                    <div class="shortdescription">
+                    {!! $service->getShortDescription() !!}
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <a class="btn btn-lg btn-primary" href="{{ $service->getInternalEditorUrl() }}">Bearbeiten</a>
+            <div class="col-8">
+                <div class="description">
+                    {!! $service->getDescription() !!}
+                </div>
             </div>
         </div>
     </div>

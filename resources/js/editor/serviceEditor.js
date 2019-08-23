@@ -46,7 +46,9 @@ export class ServiceEditor {
             this._slug = service.slug;
             this._icon.value = service.icon;
             this._description.value = service.description;
+            this._description.value = service.description;
             this._wysiwyg.setContent(service.description);
+
         } catch (e) {
             console.debug(e);
             throw new Error('Can not load service');

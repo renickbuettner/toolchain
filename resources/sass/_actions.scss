@@ -12,6 +12,7 @@ $iconSize: 32px;
     position: fixed;
     right: $padBorder;
     top: $padBorder;
+    z-index: 10;
 
     .action {
         display: inline-block;
