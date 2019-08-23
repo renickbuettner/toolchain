@@ -64,6 +64,12 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="short-description" class="col-2 col-form-label">Short-Description</label>
+        <div class="col-10">
+            <textarea id="tcshortdescription" name="shortdescription" placeholder="What does it?" cols="40" rows="12" class="form-control" required="required"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="description" class="col-2 col-form-label">Description</label>
         <div class="col-10">
             <textarea id="tcdescription" name="description" placeholder="What does it?" cols="40" rows="12" class="form-control" required="required"></textarea>

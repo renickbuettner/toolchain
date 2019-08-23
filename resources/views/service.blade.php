@@ -24,14 +24,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
-                <h4>{{ ucfirst($service->getCategory()) }}</h4>
+                <div class="col-8">
+                    <div class="shortdescription">
+                    {!! $service->getShortDescription() !!}
+                </div>
             </div>
         </div>
-            <!-- <img src="{{ $service->getIcon() }}" class="img-thumbnail"> -->
         <div class="row">
-            <div class="description">
-                <div class="col-8">
+            <div class="col-8">
+                <div class="description">
                     {!! $service->getDescription() !!}
                 </div>
             </div>
