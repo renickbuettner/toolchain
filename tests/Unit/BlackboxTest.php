@@ -10,11 +10,11 @@ use Toolchain\User;
 
 class BlackboxTest extends TestCase
 {
-
     public function testCreateServiceWithMiddleware() {
             $data = [
                 'title' => 'Youtube',
                 'description' => 'Youtube ist ein Video-Streaming-Dienst',
+                'shortdescription' => 'kurzbeschreibung',
                 'url' => 'https://www.youtube.com',
                 'slug' => 'youtube',
                 'icon' => 'http://icons.iconarchive.com/icons/dakirby309/simply-styled/64/YouTube-icon.png',
@@ -27,6 +27,8 @@ class BlackboxTest extends TestCase
 
     }
 
+
+    // Allows User to POST Data without beeing added to whitelist
     protected function setProperty($obj, $prop, $value): void
     {
         $reflection = new \ReflectionClass($obj);
@@ -39,6 +41,7 @@ class BlackboxTest extends TestCase
         $data = [
             'title' => 'Youtube',
             'description' => 'Youtube ist ein Video-Streaming-Dienst',
+            'shortdescription' => 'short Text',
             'url' => 'https://www.youtube.com',
             'slug' => 'youtube',
             'icon' => 'http://icons.iconarchive.com/icons/dakirby309/simply-styled/64/YouTube-icon.png',
@@ -54,10 +57,25 @@ class BlackboxTest extends TestCase
 
         $user = new User();
         $this->setProperty($user, 'original', $userData);
-
-
         $response = $this->actingAs($user)->json('POST', '/service/create', $data);
         $response->assertStatus(200);
+
+
+
+
+
+        // assertJson funktioniert noch nicht
+        print PHP_EOL;
+        var_dump($response->content());
+        print PHP_EOL;
+
+        print PHP_EOL;
+        //var_dump($response->assertJson([['data' => $data]]));
+        print PHP_EOL;
+
+
+        //$response->assertJson([['data' => $data]]);
+
     }
 
 }
