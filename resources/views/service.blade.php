@@ -20,19 +20,21 @@
     <div class="container service">
         <div class="row">
             <div class="col-6">
-                <h2>{{ $service->getTitle() }}</h2>
+                <h2><strong>{{ $service->getTitle() }}</strong></h2>
+                <div class="service-category">
+                    {!! $service->getCategory() !!}
+                </div>
             </div>
-            <div class="col-6">
-                    @if($service->getIcon() !== '')
-                        <img src="{{$service->getIcon()}}" class="img-thumbnail">
-                    @endif
+            <div class="col-5">
+                @if($service->getIcon() !== '')
+                    <img src="{{$service->getIcon()}}" class="img-thumbnail" alt="Logo des Services">
+                @endif
             </div>
-
+            <div class="col-1"></div>
         </div>
         <div class="row">
-                <div class="col-8">
-                    <div class="shortdescription">
-                    {!! $service->getShortDescription() !!}
+            <div class="col-6">
+                <div class="categorie">
                 </div>
             </div>
         </div>
