@@ -56,7 +56,10 @@ class BlackboxTest extends TestCase
         ];
 
         $user = new User();
+
+        //allow $user to POST Data
         $this->setProperty($user, 'original', $userData);
+
         $response = $this->actingAs($user)->json('POST', '/service/create', $data);
         $response->assertStatus(200);
 
