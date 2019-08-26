@@ -17,22 +17,22 @@
 
     @include('partials/actions', ['actions' => $actions])
 
-    <div class="container service">
+    <div class="service">
         <div class="row">
             <div class="col-6">
-                <h2>{{ $service->getTitle() }}</h2>
+                <h1>{{ $service->getTitle() }}</h1>
                 <div class="service-category">
                     {{ ucfirst($service->getCategory()) }}
                 </div>
             </div>
             @if($service->getIcon() !== '')
-            <div class="col-5">
+            <div class="col-4">
                 <img src="{{$service->getIcon()}}" class="img-thumbnail" alt="Logo des Services">
             </div>
             @endif
         </div>
         <div class="row">
-            <div class="col-12 col-md-8 col-lg-6">
+            <div class="col-12 col-md-8 col-lg-8">
                 <div class="description">
                     {!! $service->getDescription() !!}
                 </div>
