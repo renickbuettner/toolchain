@@ -28,6 +28,10 @@ $iconSize: 32px;
 
         &:hover {
             opacity: 1;
+
+            + .action-hover {
+                display: block;
+            }
         }
 
         &.delete { background-image: url($iconDelete); }
@@ -37,4 +41,51 @@ $iconSize: 32px;
         &.print { background-image: url($iconPrint); }
         &.save { background-image: url($iconSave); }
     }
+
+}
+
+.action-hover {
+    display: none;
+    position: absolute;
+    color: white;
+    background-color: #5a6268;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    top: 45px;
+    text-align: center;
+}
+
+.action-hover:after, .action-hover:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.action-hover:after {
+    border-width: 5px;
+    margin-left: -5px;
+    border-bottom-color: #5a6268;
+}
+
+.action-hover:before {
+    border-width: 5px;
+    margin-left: -5px;
+    border-bottom-color: #5a6268;
+}
+
+.action-hover-delete {
+    left: $iconSize + 2px;
+}
+
+.action-hover-ambience {
+    right: -5px + $iconSize;
+}
+
+.action-hover-print {
+    right: -5px;
 }
