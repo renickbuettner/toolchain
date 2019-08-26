@@ -152,7 +152,6 @@ export class ServiceEditor {
 
             if(this._shortdescription.value.length > 200){
                 this._shortdescription.classList.add('invalid');
-                alert('Der Text darf nicht länger als 100 Zeichen sein');
                 return;
             }
 

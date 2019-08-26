@@ -20,26 +20,19 @@
     <div class="container service">
         <div class="row">
             <div class="col-6">
-                <h2><strong>{{ $service->getTitle() }}</strong></h2>
+                <h2>{{ $service->getTitle() }}</h2>
                 <div class="service-category">
-                    {!! $service->getCategory() !!}
+                    {{ ucfirst($service->getCategory()) }}
                 </div>
             </div>
+            @if($service->getIcon() !== '')
             <div class="col-5">
-                @if($service->getIcon() !== '')
-                    <img src="{{$service->getIcon()}}" class="img-thumbnail" alt="Logo des Services">
-                @endif
+                <img src="{{$service->getIcon()}}" class="img-thumbnail" alt="Logo des Services">
             </div>
-            <div class="col-1"></div>
+            @endif
         </div>
         <div class="row">
-            <div class="col-6">
-                <div class="categorie">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-8">
+            <div class="col-12 col-md-8 col-lg-6">
                 <div class="description">
                     {!! $service->getDescription() !!}
                 </div>

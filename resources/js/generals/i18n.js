@@ -8,7 +8,7 @@ export class i18n {
             'actions.delete.item': 'Delete item',
             'editor.invalid.title': 'Invalid content',
             'editor.invalid.hide': 'Hide',
-            'editor.invalid.info': 'The form contains invalid input. The areas are highlighted. A title can contain words with spaces. A category can contain out of words and <em>_-</em>.'
+            'editor.invalid.info': 'The form contains invalid input. The areas are highlighted. A title can contain words with spaces. A category can contain out of words and <em>_-</em>. Please mind too, that a short description should not be longer than 200 chars.'
         };
     }
 
