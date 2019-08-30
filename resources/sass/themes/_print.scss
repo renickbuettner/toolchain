@@ -25,6 +25,10 @@
         display: block !important;
         flex-wrap: nowrap !important;
     }
+
+    div[class*='col-md'], div[class*='col-lg'], .col-md-4 {
+        max-width: unset !important;
+    }
 }
 
 body.print {
