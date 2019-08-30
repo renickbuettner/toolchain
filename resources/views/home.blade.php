@@ -13,11 +13,11 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
+                        <script>
+                            // fallback
+                            window.location.href = '/dashboard';
+                        </script>
                     @endif
-                    <script>
-                        // fallback
-                        window.location.href = '/dashboard';
-                    </script>
                     You are logged in!
                 </div>
             </div>
