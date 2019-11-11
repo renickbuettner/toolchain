@@ -1,7 +1,7 @@
 # Toolchain
 
 > Currently, we developed our web app with Firefox support
-> in mind. All Chromium engines should word fine as well. 
+> in mind. All Chromium engines should work fine as well. 
 > Internet Explorer users may will experience layout glitches.
 
 ## Setup
